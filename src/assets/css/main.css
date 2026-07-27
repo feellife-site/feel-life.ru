@@ -416,13 +416,12 @@ hr {
   gap: 14px;
 }
 .site-logo__image {
-  width: 96px;
-  height: 96px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  margin-bottom: -20px; /* выходит на 20px за нижнюю границу хедера */
-  box-shadow: 0 6px 18px rgba(28, 24, 20, 0.22);
+  box-shadow: 0 4px 14px rgba(28, 24, 20, 0.2);
   background: var(--paper);
   transition: transform var(--duration-base) var(--ease-out-soft);
 }
