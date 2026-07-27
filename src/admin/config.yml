@@ -55,7 +55,8 @@ collections:
               { label: "Телефон (для tel:)", name: "phoneTel", widget: "string" },
               { label: "Telegram", name: "telegram", widget: "string" },
               { label: "Instagram", name: "instagram", widget: "string" },
-              { label: "Локация", name: "location", widget: "string" },
+              { label: "Локация (главный текст)", name: "location", widget: "string" },
+              { label: "Локация (примечание)", name: "locationNote", widget: "text", required: false, hint: "Например: Практики и встречи — в Сухуме, также организуются выезды по России" },
             ]}
           - { label: "Соцсети", name: "social", widget: "object", fields: [
               { label: "Telegram", name: "telegram", widget: "string" },

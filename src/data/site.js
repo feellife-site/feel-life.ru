@@ -1,4 +1,6 @@
 // Site data — общая информация о бренде
+// Этот файл — fallback для build.js на случай если src/content/settings/site.json пуст.
+// Реальные данные редактируются через Decap CMS (Настройки сайта).
 module.exports = {
   brand: {
     name: "MIA IRE",
@@ -13,17 +15,18 @@ module.exports = {
     role: "проводник Церемоний Звука",
   },
   contacts: {
-    email: "hello@example.com",
-    phone: "+7 (999) 123-45-67",
-    phoneTel: "+79991234567",
-    telegram: "https://t.me/",
-    instagram: "https://www.instagram.com/",
-    location: "Абхазия · Сухум",
+    email: "support@feel-life.ru",
+    phone: "+79608406048",
+    phoneTel: "+79608406048",
+    telegram: "https://t.me/mia_ire",
+    instagram: "https://www.instagram.com/mia.feellife",
+    location: "Абхазия · Сухум · Москва",
+    locationNote: "Практики и встречи — в Сухуме, также организуются выезды по России",
   },
   url: "https://feel-life.ru",
   social: {
-    telegram: "https://t.me/",
-    instagram: "https://www.instagram.com/",
+    telegram: "https://t.me/mia_ire",
+    instagram: "https://www.instagram.com/mia.feellife",
     youtube: "https://www.youtube.com/",
   },
 };

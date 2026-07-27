@@ -414,6 +414,7 @@ function buildPages(data) {
     html = html.replace(/\{\{TELEGRAM_URL\}\}/g, data.site.contacts?.telegram || "#");
     html = html.replace(/\{\{INSTAGRAM_URL\}\}/g, data.site.contacts?.instagram || "#");
     html = html.replace(/\{\{LOCATION\}\}/g, data.site.contacts?.location || "");
+    html = html.replace(/\{\{LOCATION_NOTE\}\}/g, data.site.contacts?.locationNote || "");
 
     // Запись
     const out = path.join(DIST, page.rel, "index.html");
