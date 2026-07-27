@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Earthen Editorial">
+  <defs>
+    <linearGradient id="fbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b5532a"/>
+      <stop offset="1" stop-color="#8c3a1f"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#fbg)"/>
+  <g transform="translate(32 32)" fill="none" stroke="#f4ece0" stroke-width="1.4" stroke-linecap="round">
+    <circle r="18"/>
+    <circle r="12"/>
+    <circle r="6"/>
+    <circle r="2" fill="#f4ece0"/>
+  </g>
+  <text x="32" y="58" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="9" fill="#f4ece0" font-weight="500">E·E</text>
+</svg>

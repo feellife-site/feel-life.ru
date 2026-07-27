@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Этнотур по горам Абхазии — тропа вдоль горного хребта">
+  <defs>
+    <linearGradient id="sky6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2f24"/>
+      <stop offset="0.5" stop-color="#7a5a3a"/>
+      <stop offset="1" stop-color="#b5855a"/>
+    </linearGradient>
+    <linearGradient id="mtn6a" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2e22"/>
+      <stop offset="1" stop-color="#1a1410"/>
+    </linearGradient>
+    <linearGradient id="mtn6b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a4a32"/>
+      <stop offset="1" stop-color="#2a2218"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#sky6)"/>
+  <path d="M0 280 L80 180 L180 250 L300 160 L420 240 L540 150 L680 230 L800 160 L940 240 L1080 170 L1200 220 L1200 675 L0 675 Z" fill="url(#mtn6b)"/>
+  <path d="M0 420 L100 340 L240 400 L380 320 L520 400 L660 320 L820 400 L960 340 L1100 400 L1200 360 L1200 675 L0 675 Z" fill="url(#mtn6a)"/>
+  <path d="M0 540 L120 500 L280 540 L440 510 L600 550 L760 520 L920 555 L1080 525 L1200 545 L1200 675 L0 675 Z" fill="#3a2e22" opacity="0.7"/>
+  <g opacity="0.4" stroke="#1a1410" stroke-width="1" fill="none">
+    <path d="M0 600 Q 300 580 600 595 T 1200 590"/>
+  </g>
+</svg>

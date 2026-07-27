@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Новый Афон — монастырь у моря">
+  <defs>
+    <linearGradient id="sky7" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a3540"/>
+      <stop offset="0.5" stop-color="#4a5a70"/>
+      <stop offset="1" stop-color="#7a8aa0"/>
+    </linearGradient>
+    <linearGradient id="sea7" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a4a5a"/>
+      <stop offset="1" stop-color="#1a2a3a"/>
+    </linearGradient>
+    <linearGradient id="cliff" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a6a4a"/>
+      <stop offset="1" stop-color="#2a3a2a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#sky7)"/>
+  <path d="M0 380 L150 320 L300 360 L450 300 L600 350 L750 290 L900 340 L1050 300 L1200 330 L1200 480 L0 480 Z" fill="url(#cliff)"/>
+  <path d="M0 480 L1200 460 L1200 500 L0 520 Z" fill="url(#sea7)"/>
+  <g opacity="0.5" fill="#f4ece0">
+    <rect x="540" y="370" width="40" height="60"/>
+    <rect x="600" y="360" width="50" height="70"/>
+    <rect x="670" y="375" width="35" height="55"/>
+    <rect x="600" y="350" width="6" height="20"/>
+    <polygon points="565,370 575,355 585,370"/>
+    <polygon points="625,350 635,335 645,350"/>
+    <polygon points="690,375 700,360 710,375"/>
+  </g>
+</svg>

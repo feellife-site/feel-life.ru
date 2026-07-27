@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ханг — стальной барабан ручной работы">
+  <defs>
+    <linearGradient id="sbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2e22"/>
+      <stop offset="1" stop-color="#1a1410"/>
+    </linearGradient>
+    <linearGradient id="bowl2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b08565"/>
+      <stop offset="0.5" stop-color="#7a5a3a"/>
+      <stop offset="1" stop-color="#4a3a2a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#sbg)"/>
+  <ellipse cx="400" cy="600" rx="320" ry="60" fill="#1a1410" opacity="0.4"/>
+  <ellipse cx="400" cy="580" rx="320" ry="100" fill="url(#bowl2)"/>
+  <ellipse cx="400" cy="500" rx="280" ry="40" fill="#3a2e22"/>
+  <ellipse cx="400" cy="500" rx="260" ry="32" fill="#1a1410"/>
+  <ellipse cx="400" cy="500" rx="240" ry="24" fill="#2a1f14"/>
+  <g opacity="0.6" stroke="#7a5a3a" stroke-width="2" fill="none">
+    <ellipse cx="400" cy="500" rx="220" ry="14"/>
+    <ellipse cx="400" cy="500" rx="200" ry="8"/>
+  </g>
+  <g opacity="0.5" stroke="#d27852" stroke-width="1" fill="none">
+    <circle cx="400" cy="450" r="80"/>
+    <circle cx="400" cy="450" r="140"/>
+    <circle cx="400" cy="450" r="200"/>
+    <circle cx="400" cy="450" r="260"/>
+    <circle cx="400" cy="450" r="320"/>
+  </g>
+</svg>

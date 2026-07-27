@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Админка · MIA IRE</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    html, body { margin: 0; padding: 0; background: #F4ECE0; }
+  </style>
+  <script>
+    // Авто-выбор конфига Decap CMS по hostname:
+    //   localhost → config.local.yml  (test-repo, без логина, правки в localStorage)
+    //   прод      → config.yml        (git-gateway, Netlify Identity)
+    // Можно переопределить вручную: ?config=config.github.yml (Cloudflare / GitHub OAuth)
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("config")) return;
+      var host = window.location.hostname;
+      var isLocal = host === "localhost" || host === "127.0.0.1" || host === "0.0.0.0";
+      var cfg = isLocal ? "config.local.yml" : "config.yml";
+      var url = window.location.pathname + "?config=" + cfg + window.location.hash;
+      window.history.replaceState({}, "", url);
+    })();
+  </script>
+</head>
+<body>
+  <!--
+    Decap CMS (бывший Netlify CMS)
+    Грузится как ESM-скрипт с unpkg.
+    Конфиг:
+      - на localhost — config.local.yml (test-repo, без логина)
+      - на проде     — config.yml       (git-gateway, Netlify Identity)
+    Если нужен другой конфиг: /admin/?config=config.github.yml
+  -->
+  <script src="https://unpkg.com/decap-cms@^3.7.0/dist/decap-cms.js"></script>
+</body>
+</html>

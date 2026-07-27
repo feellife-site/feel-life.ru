@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Атмосфера Церемонии Звука — ханг и этнические инструменты">
+  <defs>
+    <linearGradient id="bg5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2e22"/>
+      <stop offset="1" stop-color="#1f1812"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#d27852" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#d27852" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a07555"/>
+      <stop offset="0.5" stop-color="#7a5a3a"/>
+      <stop offset="1" stop-color="#4a3a2a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg5)"/>
+  <ellipse cx="600" cy="450" rx="400" ry="180" fill="url(#glow)"/>
+  <ellipse cx="450" cy="500" rx="160" ry="50" fill="url(#bowl)"/>
+  <ellipse cx="450" cy="490" rx="160" ry="14" fill="#3a2e22"/>
+  <ellipse cx="450" cy="500" rx="150" ry="42" fill="none" stroke="#3a2e22" stroke-width="2"/>
+  <ellipse cx="730" cy="540" rx="120" ry="40" fill="url(#bowl)"/>
+  <ellipse cx="730" cy="530" rx="120" ry="10" fill="#3a2e22"/>
+  <ellipse cx="730" cy="540" rx="110" ry="32" fill="none" stroke="#3a2e22" stroke-width="1.5"/>
+  <ellipse cx="280" cy="560" rx="100" ry="32" fill="url(#bowl)"/>
+  <ellipse cx="280" cy="550" rx="100" ry="8" fill="#3a2e22"/>
+  <ellipse cx="280" cy="560" rx="92" ry="26" fill="none" stroke="#3a2e22" stroke-width="1.5"/>
+  <g opacity="0.3" stroke="#d27852" stroke-width="1" fill="none">
+    <circle cx="600" cy="400" r="120"/>
+    <circle cx="600" cy="400" r="200"/>
+    <circle cx="600" cy="400" r="280"/>
+    <circle cx="600" cy="400" r="360"/>
+  </g>
+  <g opacity="0.15" fill="#d27852">
+    <circle cx="400" cy="200" r="2"/>
+    <circle cx="800" cy="180" r="2"/>
+    <circle cx="500" cy="120" r="1.5"/>
+    <circle cx="900" cy="240" r="1.5"/>
+    <circle cx="300" cy="160" r="1.5"/>
+  </g>
+</svg>

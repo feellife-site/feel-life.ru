@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Горный ретрит в Абхазии — рассвет над долиной">
+  <defs>
+    <linearGradient id="rsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2a3a"/>
+      <stop offset="0.4" stop-color="#5a4a4a"/>
+      <stop offset="0.7" stop-color="#b5855a"/>
+      <stop offset="1" stop-color="#d27852"/>
+    </linearGradient>
+    <linearGradient id="rmtn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2218"/>
+      <stop offset="1" stop-color="#0f0c08"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#rsky)"/>
+  <circle cx="600" cy="500" r="80" fill="#f5deb3" opacity="0.7"/>
+  <path d="M0 360 L80 280 L200 340 L320 260 L460 340 L600 250 L740 340 L880 270 L1020 340 L1140 280 L1200 320 L1200 500 L0 500 Z" fill="url(#rmtn)"/>
+  <path d="M0 480 L120 420 L280 480 L440 420 L600 480 L760 420 L920 480 L1080 420 L1200 460 L1200 675 L0 675 Z" fill="#1a1410" opacity="0.8"/>
+  <g opacity="0.3" stroke="#f4ece0" stroke-width="0.5" fill="none">
+    <path d="M0 580 Q 300 570 600 580 T 1200 580"/>
+    <path d="M0 620 Q 300 610 600 620 T 1200 620"/>
+  </g>
+</svg>

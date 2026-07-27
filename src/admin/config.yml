@@ -1,0 +1,177 @@
+# Decap CMS — production-конфиг для Netlify (git-gateway + Netlify Identity)
+# Документация: https://decapcms.org/docs/configuration-options/
+#
+# Используется автоматически на проде (см. admin/index.html).
+# На localhost авто-выбирается config.local.yml (test-repo, без логина).
+# Если деплоишь на Cloudflare Pages / Vercel / куда угодно с GitHub OAuth —
+# открой https://feel-life.ru/admin/?config=config.github.yml
+
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: 'cms: create {{collection}} “{{slug}}”'
+    update: 'cms: update {{collection}} “{{slug}}”'
+    delete: 'cms: delete {{collection}} “{{slug}}”'
+    uploadMedia: 'cms: upload media {{path}}'
+    deleteMedia: 'cms: delete media {{path}}'
+    openAuthoring: 'cms: {{message}}'
+
+media_folder: "src/assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+# ───────────── Коллекции ─────────────
+
+collections:
+
+  # ── Настройки сайта (один файл) ──
+  - name: "site"
+    label: "Настройки сайта"
+    label_singular: "Настройка"
+    description: "Название бренда, контакты, соцсети, URL сайта"
+    editor:
+      preview: false
+    files:
+      - name: "site"
+        label: "Общие настройки"
+        file: "src/content/settings/site.json"
+        format: "json"
+        fields:
+          - { label: "URL сайта", name: "url", widget: "string" }
+          - { label: "Бренд", name: "brand", widget: "object", fields: [
+              { label: "Полное название", name: "name", widget: "string" },
+              { label: "Короткое название", name: "shortName", widget: "string" },
+              { label: "Слоган", name: "tagline", widget: "string" },
+              { label: "Описание", name: "description", widget: "text" },
+            ]}
+          - { label: "Автор", name: "author", widget: "object", fields: [
+              { label: "Имя", name: "name", widget: "string" },
+              { label: "Полное имя", name: "fullName", widget: "string" },
+              { label: "Роль", name: "role", widget: "string" },
+            ]}
+          - { label: "Контакты", name: "contacts", widget: "object", fields: [
+              { label: "Email", name: "email", widget: "string" },
+              { label: "Телефон (отображение)", name: "phone", widget: "string" },
+              { label: "Телефон (для tel:)", name: "phoneTel", widget: "string" },
+              { label: "Telegram", name: "telegram", widget: "string" },
+              { label: "Instagram", name: "instagram", widget: "string" },
+              { label: "Локация", name: "location", widget: "string" },
+            ]}
+          - { label: "Соцсети", name: "social", widget: "object", fields: [
+              { label: "Telegram", name: "telegram", widget: "string" },
+              { label: "Instagram", name: "instagram", widget: "string" },
+              { label: "YouTube", name: "youtube", widget: "string" },
+            ]}
+
+  # ── Блог: статьи (Markdown) ──
+  - name: "posts"
+    label: "Блог"
+    label_singular: "Статья"
+    description: "Статьи блога в формате Markdown. Каждая статья — отдельный файл."
+    folder: "src/content/posts"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    media_folder: "src/assets/images/blog/{{slug}}"
+    public_folder: "/assets/images/blog/{{slug}}"
+    fields:
+      - { label: "Заголовок", name: "title", widget: "string" }
+      - { label: "Slug (URL)", name: "slug", widget: "string", hint: "Только латиница и дефисы, например: my-article" }
+      - { label: "Дата публикации", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+      - { label: "Автор", name: "author", widget: "string", default: "MIA IRE" }
+      - { label: "Время чтения", name: "readTime", widget: "string", hint: "Например: 8 минут", required: false }
+      - { label: "Тег / Рубрика", name: "tag", widget: "string", required: false }
+      - { label: "Обложка (файл)", name: "cover", widget: "image", allow_unsupported: false, required: false,
+          media_library: { config: { multiple: false } } }
+      - { label: "Alt обложки", name: "coverAlt", widget: "string", required: false }
+      - { label: "Краткое описание (для ленты)", name: "excerpt", widget: "text", required: false }
+      - { label: "Опубликовано", name: "draft", widget: "boolean", default: false, required: false, hint: "Снимите галочку, чтобы опубликовать" }
+      - { label: "Текст статьи", name: "body", widget: "markdown" }
+
+  # ── Туры (JSON, по файлу на тур) ──
+  - name: "tours"
+    label: "Туры"
+    label_singular: "Тур"
+    description: "Авторские этнотуры — по одному файлу на каждый."
+    folder: "src/content/tours"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "Slug", name: "slug", widget: "string", hint: "Только латиница и дефисы" }
+      - { label: "Название", name: "title", widget: "string" }
+      - { label: "Регион / подзаголовок", name: "region", widget: "string", required: false }
+      - { label: "Длительность", name: "duration", widget: "string", hint: "Например: 2 дня / 1 ночь" }
+      - { label: "Размер группы", name: "group", widget: "string", hint: "Например: до 8 человек", required: false }
+      - { label: "Цена (₽, число)", name: "price", widget: "number", value_type: "int", min: 0 }
+      - { label: "Единица цены", name: "priceUnit", widget: "string", default: "с человека", required: false }
+      - { label: "Обложка", name: "cover", widget: "image", allow_unsupported: false, required: false }
+      - { label: "Alt обложки", name: "coverAlt", widget: "string", required: false }
+      - { label: "Краткое описание", name: "desc", widget: "text" }
+      - { label: "Программа по дням", name: "program", widget: "list", summary: "{{fields.day}} — {{fields.text}}", fields: [
+          { label: "День", name: "day", widget: "string", hint: "Например: День 1" },
+          { label: "Описание", name: "text", widget: "text" },
+        ]}
+
+  # ── Товары (JSON) ──
+  - name: "products"
+    label: "Магазин · Товары"
+    label_singular: "Товар"
+    description: "Каталог магазина: какао, инструменты, благовония, наборы."
+    folder: "src/content/products"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Название", name: "title", widget: "string" }
+      - { label: "Подпись / характеристика", name: "meta", widget: "string", required: false }
+      - { label: "Цена (₽)", name: "price", widget: "number", value_type: "int", min: 0 }
+      - { label: "Тег", name: "tag", widget: "select", required: false, options: [
+          { label: "Без тега", value: "" },
+          { label: "Бестселлер", value: "Бестселлер" },
+          { label: "Новинка", value: "Новинка" },
+          { label: "Подарок", value: "Подарок" },
+        ]}
+      - { label: "Обложка", name: "cover", widget: "image", allow_unsupported: false, required: false }
+      - { label: "Alt обложки", name: "coverAlt", widget: "string", required: false }
+
+  # ── Отзывы (JSON) ──
+  - name: "testimonials"
+    label: "Отзывы"
+    label_singular: "Отзыв"
+    description: "Цитаты участников — отображаются на главной."
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "Slug", name: "slug", widget: "string", required: false }
+      - { label: "Цитата", name: "quote", widget: "text" }
+      - { label: "Имя", name: "name", widget: "string" }
+      - { label: "Мета (город · формат)", name: "meta", widget: "string", required: false }
+
+  # ── Ближайшие события (JSON) ──
+  - name: "events"
+    label: "Ближайшие события"
+    label_singular: "Событие"
+    description: "Анонсы ближайших практик, туров и церемоний."
+    folder: "src/content/events"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Заголовок", name: "title", widget: "string" }
+      - { label: "Подпись", name: "meta", widget: "string", required: false, hint: "Например: Сухум · скрипка, ханг, голос" }
+      - { label: "Ссылка", name: "href", widget: "string", default: "/", required: false }
+      - { label: "Дата", name: "date", widget: "object", fields: [
+          { label: "День", name: "day", widget: "string" },
+          { label: "Месяц (3 буквы)", name: "month", widget: "string" },
+          { label: "Год", name: "year", widget: "string" },
+        ]}

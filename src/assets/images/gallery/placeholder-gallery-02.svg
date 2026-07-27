@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Кодорское ущелье — кавказские горы и бурная река">
+  <defs>
+    <linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2f24"/>
+      <stop offset="0.5" stop-color="#5a4a32"/>
+      <stop offset="1" stop-color="#7a6a4a"/>
+    </linearGradient>
+    <linearGradient id="rock1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2e22"/>
+      <stop offset="1" stop-color="#1f1812"/>
+    </linearGradient>
+    <linearGradient id="rock2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a4a32"/>
+      <stop offset="1" stop-color="#2a2218"/>
+    </linearGradient>
+    <linearGradient id="river" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a4a52"/>
+      <stop offset="1" stop-color="#1a2a32"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky4)"/>
+  <path d="M0 200 L80 140 L180 200 L280 120 L400 200 L520 130 L660 200 L800 140 L940 200 L1080 150 L1200 190 L1200 500 L0 500 Z" fill="url(#rock2)"/>
+  <path d="M0 320 L120 260 L260 320 L400 240 L560 320 L720 240 L880 320 L1040 250 L1200 300 L1200 600 L0 600 Z" fill="url(#rock1)"/>
+  <path d="M0 580 Q 100 560 200 580 T 400 580 T 600 580 T 800 580 T 1000 580 T 1200 580 L1200 800 L0 800 Z" fill="url(#river)"/>
+  <g opacity="0.4" stroke="#a6c0c0" stroke-width="0.5" fill="none">
+    <path d="M0 620 Q 150 610 300 620 T 600 620 T 900 620 T 1200 620"/>
+    <path d="M0 660 Q 150 650 300 660 T 600 660 T 900 660 T 1200 660"/>
+    <path d="M0 700 Q 150 690 300 700 T 600 700 T 900 700 T 1200 700"/>
+    <path d="M0 740 Q 150 730 300 740 T 600 740 T 900 740 T 1200 740"/>
+  </g>
+</svg>

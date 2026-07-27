@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Портрет проводника практик — стилизованный силуэт">
+  <defs>
+    <linearGradient id="abg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a4a32"/>
+      <stop offset="1" stop-color="#2a2218"/>
+    </linearGradient>
+    <radialGradient id="ahalo" cx="0.5" cy="0.4" r="0.5">
+      <stop offset="0" stop-color="#d27852" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#d27852" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#abg)"/>
+  <ellipse cx="400" cy="380" rx="280" ry="280" fill="url(#ahalo)"/>
+  <g opacity="0.85" fill="#1c1a17">
+    <ellipse cx="400" cy="340" rx="120" ry="150"/>
+    <path d="M280 480 Q 280 420 320 400 L 480 400 Q 520 420 520 480 L 520 700 L 280 700 Z"/>
+  </g>
+  <g opacity="0.6" stroke="#d27852" stroke-width="1.5" fill="none">
+    <ellipse cx="400" cy="340" rx="130" ry="160"/>
+    <ellipse cx="400" cy="340" rx="160" ry="190"/>
+  </g>
+  <g opacity="0.4" fill="#d27852">
+    <circle cx="350" cy="320" r="3"/>
+    <circle cx="450" cy="320" r="3"/>
+    <path d="M370 380 Q 400 400 430 380" stroke="#d27852" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

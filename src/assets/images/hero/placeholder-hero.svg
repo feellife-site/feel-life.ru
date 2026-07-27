@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Церемония Звука в горах Абхазии — закатное солнце над горами и морем">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2f24"/>
+      <stop offset="0.45" stop-color="#5e3d28"/>
+      <stop offset="0.8" stop-color="#b5532a"/>
+      <stop offset="1" stop-color="#d27852"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2218"/>
+      <stop offset="1" stop-color="#1c1a17"/>
+    </linearGradient>
+    <linearGradient id="mtn1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a221a"/>
+      <stop offset="1" stop-color="#131110"/>
+    </linearGradient>
+    <linearGradient id="mtn2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2e22"/>
+      <stop offset="1" stop-color="#1f1812"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.7" cy="0.7" r="0.3">
+      <stop offset="0" stop-color="#f3d2a0"/>
+      <stop offset="0.5" stop-color="#d27852" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#d27852" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <circle cx="1340" cy="760" r="180" fill="url(#sun)"/>
+  <circle cx="1340" cy="760" r="60" fill="#f5deb3" opacity="0.7"/>
+  <path d="M0 720 L160 580 L320 660 L480 520 L640 640 L820 480 L980 600 L1160 500 L1340 580 L1520 460 L1700 540 L1920 500 L1920 1080 L0 1080 Z" fill="url(#mtn2)" opacity="0.9"/>
+  <path d="M0 820 L200 700 L380 780 L560 660 L740 760 L940 620 L1140 740 L1340 640 L1540 760 L1760 680 L1920 720 L1920 1080 L0 1080 Z" fill="url(#mtn1)"/>
+  <path d="M0 920 L1920 900 L1920 1080 L0 1080 Z" fill="url(#sea)"/>
+  <g opacity="0.3" stroke="#f4ece0" stroke-width="0.5" fill="none">
+    <path d="M0 950 Q 480 940 960 950 T 1920 950"/>
+    <path d="M0 980 Q 480 970 960 980 T 1920 980"/>
+    <path d="M0 1010 Q 480 1000 960 1010 T 1920 1010"/>
+    <path d="M0 1040 Q 480 1030 960 1040 T 1920 1040"/>
+  </g>
+</svg>

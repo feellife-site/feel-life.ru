@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Озеро Рица в горах Абхазии — бирюзовая вода в обрамлении леса">
+  <defs>
+    <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a3a3a"/>
+      <stop offset="0.6" stop-color="#3a4e4a"/>
+      <stop offset="1" stop-color="#5a7a6a"/>
+    </linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a5a5a"/>
+      <stop offset="0.5" stop-color="#4a6a6a"/>
+      <stop offset="1" stop-color="#1a2a2a"/>
+    </linearGradient>
+    <linearGradient id="mtn3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a3a32"/>
+      <stop offset="1" stop-color="#0f1a14"/>
+    </linearGradient>
+    <linearGradient id="mtn4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a4a3a"/>
+      <stop offset="1" stop-color="#1a2a1f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky3)"/>
+  <path d="M0 280 L100 200 L220 260 L340 180 L460 240 L580 160 L720 240 L840 180 L980 250 L1100 200 L1200 230 L1200 800 L0 800 Z" fill="url(#mtn4)"/>
+  <path d="M0 420 L120 360 L260 400 L400 340 L540 400 L680 350 L820 400 L960 360 L1100 410 L1200 380 L1200 800 L0 800 Z" fill="url(#mtn3)"/>
+  <path d="M0 540 Q 300 520 600 540 T 1200 540 L1200 800 L0 800 Z" fill="url(#lake)"/>
+  <g opacity="0.3" stroke="#a6c0b0" stroke-width="0.6" fill="none">
+    <path d="M0 580 Q 300 570 600 580 T 1200 580"/>
+    <path d="M0 620 Q 300 610 600 620 T 1200 620"/>
+    <path d="M0 660 Q 300 650 600 660 T 1200 660"/>
+  </g>
+  <g opacity="0.6">
+    <path d="M0 540 L120 530 L240 540 L360 535 L480 542 L600 538 L720 540 L840 532 L960 540 L1080 535 L1200 540" stroke="#0f1a14" stroke-width="1" fill="none"/>
+  </g>
+</svg>

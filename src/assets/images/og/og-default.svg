@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="MIA IRE — Церемонии Звука и этнотуры в Абхазии">
+  <defs>
+    <linearGradient id="ogbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c1a17"/>
+      <stop offset="0.6" stop-color="#2a2218"/>
+      <stop offset="1" stop-color="#3a2e22"/>
+    </linearGradient>
+    <radialGradient id="ogsun" cx="0.7" cy="0.5" r="0.4">
+      <stop offset="0" stop-color="#d27852" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#d27852" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#ogbg)"/>
+  <ellipse cx="840" cy="320" rx="500" ry="320" fill="url(#ogsun)"/>
+  <g opacity="0.6" stroke="#d27852" stroke-width="0.5" fill="none">
+    <circle cx="840" cy="380" r="60"/>
+    <circle cx="840" cy="380" r="120"/>
+    <circle cx="840" cy="380" r="180"/>
+    <circle cx="840" cy="380" r="240"/>
+    <circle cx="840" cy="380" r="300"/>
+  </g>
+  <g transform="translate(80 220)">
+    <text font-family="Cormorant Garamond, serif" font-size="100" font-weight="300" fill="#f4ece0" letter-spacing="-2">Earthen</text>
+    <text font-family="Cormorant Garamond, serif" font-size="100" font-style="italic" font-weight="300" fill="#d27852" letter-spacing="-2" y="120">Editorial</text>
+    <text font-family="Manrope, sans-serif" font-size="22" fill="#a6b099" letter-spacing="6" y="180" font-weight="500">SOUND HEALING · ETHNO TOURS · CACAO</text>
+    <text font-family="Manrope, sans-serif" font-size="20" fill="#f4ece0" letter-spacing="2" y="220" font-weight="500">Абхазия · Черное море · Кавказ</text>
+  </g>
+</svg>

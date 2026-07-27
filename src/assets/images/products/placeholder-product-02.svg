@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Натуральные благовония — тлеющая палочка">
+  <defs>
+    <linearGradient id="ibg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2218"/>
+      <stop offset="1" stop-color="#131110"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#ibg)"/>
+  <g opacity="0.3" stroke="#d27852" stroke-width="0.5" fill="none">
+    <path d="M100 200 Q 400 100 700 200"/>
+    <path d="M100 280 Q 400 180 700 280"/>
+    <path d="M100 360 Q 400 260 700 360"/>
+    <path d="M100 440 Q 400 340 700 440"/>
+    <path d="M100 520 Q 400 420 700 520"/>
+    <path d="M100 600 Q 400 500 700 600"/>
+  </g>
+  <g transform="translate(400 600)">
+    <rect x="-1.5" y="-300" width="3" height="300" fill="#3a2e22"/>
+    <rect x="-1.5" y="-300" width="3" height="300" fill="#5a4a32" opacity="0.5"/>
+    <circle cx="0" cy="-310" r="6" fill="#d27852"/>
+    <circle cx="0" cy="-310" r="3" fill="#f5deb3"/>
+    <g opacity="0.5" fill="#d27852">
+      <circle cx="-30" cy="-340" r="1.5"/>
+      <circle cx="20" cy="-360" r="1"/>
+      <circle cx="-15" cy="-380" r="1.5"/>
+      <circle cx="35" cy="-400" r="1"/>
+      <circle cx="-25" cy="-420" r="1.5"/>
+      <circle cx="15" cy="-440" r="1"/>
+      <circle cx="-20" cy="-460" r="1"/>
+      <circle cx="30" cy="-480" r="1"/>
+    </g>
+  </g>
+</svg>

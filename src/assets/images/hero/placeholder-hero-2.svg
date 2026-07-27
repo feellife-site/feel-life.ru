@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Горный пейзаж Абхазии — туман в ущелье">
+  <defs>
+    <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a3530"/>
+      <stop offset="0.6" stop-color="#4a5a4a"/>
+      <stop offset="1" stop-color="#7a8a72"/>
+    </linearGradient>
+    <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f2a22"/>
+      <stop offset="1" stop-color="#0f1612"/>
+    </linearGradient>
+    <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a4a3a"/>
+      <stop offset="1" stop-color="#1f2a22"/>
+    </linearGradient>
+    <linearGradient id="fog" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a6b099" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#a6b099" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#a6b099" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky2)"/>
+  <path d="M0 480 L120 360 L240 440 L380 320 L520 420 L680 300 L840 400 L1000 280 L1160 380 L1320 260 L1480 360 L1640 240 L1800 340 L1920 280 L1920 1080 L0 1080 Z" fill="url(#m2)"/>
+  <path d="M0 680 L180 560 L360 640 L540 520 L720 620 L900 500 L1080 600 L1260 480 L1440 580 L1620 460 L1800 560 L1920 500 L1920 1080 L0 1080 Z" fill="url(#m1)"/>
+  <rect x="0" y="500" width="1920" height="280" fill="url(#fog)"/>
+  <g opacity="0.5" fill="#0f1612">
+    <path d="M0 880 L1920 860 L1920 920 L0 940 Z"/>
+  </g>
+</svg>

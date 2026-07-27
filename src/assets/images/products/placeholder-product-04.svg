@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Какао-бобы">
+  <defs>
+    <linearGradient id="cbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2218"/>
+      <stop offset="1" stop-color="#131110"/>
+    </linearGradient>
+    <linearGradient id="bean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a3a1f"/>
+      <stop offset="0.5" stop-color="#3a2a18"/>
+      <stop offset="1" stop-color="#1a1208"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#cbg)"/>
+  <g transform="translate(400 400)">
+    <g>
+      <ellipse cx="-200" cy="-100" rx="70" ry="40" fill="url(#bean)" transform="rotate(-30 -200 -100)"/>
+      <ellipse cx="-200" cy="-100" rx="60" ry="32" fill="#2a1a0f" transform="rotate(-30 -200 -100)"/>
+      <line x1="-260" y1="-120" x2="-140" y2="-80" stroke="#1a1208" stroke-width="2" transform="rotate(-30 -200 -100)"/>
+    </g>
+    <g>
+      <ellipse cx="0" cy="0" rx="80" ry="44" fill="url(#bean)"/>
+      <ellipse cx="0" cy="0" rx="68" ry="36" fill="#2a1a0f"/>
+      <line x1="-66" y1="-2" x2="66" y2="2" stroke="#1a1208" stroke-width="2"/>
+    </g>
+    <g>
+      <ellipse cx="200" cy="80" rx="75" ry="42" fill="url(#bean)" transform="rotate(25 200 80)"/>
+      <ellipse cx="200" cy="80" rx="65" ry="34" fill="#2a1a0f" transform="rotate(25 200 80)"/>
+      <line x1="135" y1="60" x2="265" y2="100" stroke="#1a1208" stroke-width="2" transform="rotate(25 200 80)"/>
+    </g>
+    <g>
+      <ellipse cx="-100" cy="180" rx="68" ry="38" fill="url(#bean)" transform="rotate(-15 -100 180)"/>
+      <ellipse cx="-100" cy="180" rx="58" ry="30" fill="#2a1a0f" transform="rotate(-15 -100 180)"/>
+      <line x1="-160" y1="170" x2="-40" y2="190" stroke="#1a1208" stroke-width="2" transform="rotate(-15 -100 180)"/>
+    </g>
+    <g>
+      <ellipse cx="100" cy="-200" rx="72" ry="40" fill="url(#bean)" transform="rotate(40 100 -200)"/>
+      <ellipse cx="100" cy="-200" rx="62" ry="32" fill="#2a1a0f" transform="rotate(40 100 -200)"/>
+      <line x1="40" y1="-220" x2="160" y2="-180" stroke="#1a1208" stroke-width="2" transform="rotate(40 100 -200)"/>
+    </g>
+  </g>
+</svg>
