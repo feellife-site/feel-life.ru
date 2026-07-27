@@ -413,6 +413,7 @@ hr {
   color: var(--ink);
   height: 100%;
   flex-shrink: 0;
+  gap: 14px;
 }
 .site-logo__image {
   width: 96px;
@@ -425,8 +426,32 @@ hr {
   background: var(--paper);
   transition: transform var(--duration-base) var(--ease-out-soft);
 }
+.site-logo__brand {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--ink) 0%, #7a5a3a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  transition: opacity var(--duration-base) var(--ease-out-soft);
+}
 .site-logo:hover .site-logo__image {
   transform: scale(1.05) rotate(-2deg);
+}
+.site-logo:hover .site-logo__brand {
+  opacity: 0.75;
+}
+/* На узких экранах — скрываем надпись, оставляем только круг */
+@media (max-width: 640px) {
+  .site-logo__brand { display: none; }
+  .site-logo { gap: 0; }
 }
 .nav {
   display: none;

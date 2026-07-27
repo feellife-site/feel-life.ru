@@ -8,6 +8,7 @@ const fs = require("fs");
 const path = require("path");
 
 const SRC_IMAGE = path.resolve(__dirname, "..", "src", "image");
+const SRC_LOGO = path.resolve(__dirname, "..", "src", "Untitled.png");
 const ASSETS = path.resolve(__dirname, "..", "src", "assets", "images");
 const BRAND_DIR = path.join(ASSETS, "brand");
 const UPLOADS_DIR = path.join(ASSETS, "uploads");
@@ -17,7 +18,7 @@ fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
 (async () => {
   // ── 1. Лого: квадратные версии разных размеров (для CSS border-radius: 50%) ──
-  const logoPath = path.join(SRC_IMAGE, "logo.png");
+  const logoPath = fs.existsSync(SRC_LOGO) ? SRC_LOGO : path.join(SRC_IMAGE, "logo.png");
   if (fs.existsSync(logoPath)) {
     const sizes = [32, 64, 128, 256, 512];
     for (const s of sizes) {
@@ -38,27 +39,29 @@ fs.mkdirSync(UPLOADS_DIR, { recursive: true });
   }
 
   // ── 2. Все фото → WebP, положить в src/assets/images/uploads/ ──
-  const files = fs.readdirSync(SRC_IMAGE).filter((f) => /\.(jpg|jpeg|png)$/i.test(f));
-  for (const f of files) {
-    if (/^logo\.png$/i.test(f)) continue; // лого отдельно обработали
-    const src = path.join(SRC_IMAGE, f);
-    const stat = fs.statSync(src);
-    const base = path.basename(f, path.extname(f));
-    const out = path.join(UPLOADS_DIR, `${base}.webp`);
+  if (fs.existsSync(SRC_IMAGE)) {
+    const files = fs.readdirSync(SRC_IMAGE).filter((f) => /\.(jpg|jpeg|png)$/i.test(f));
+    for (const f of files) {
+      if (/^logo\.png$/i.test(f)) continue; // лого отдельно обработали
+      const src = path.join(SRC_IMAGE, f);
+      const stat = fs.statSync(src);
+      const base = path.basename(f, path.extname(f));
+      const out = path.join(UPLOADS_DIR, `${base}.webp`);
 
-    const meta = await sharp(src).metadata();
-    await sharp(src)
-      .rotate() // авто-поворот по EXIF
-      .webp({ quality: 85, effort: 4 })
-      .toFile(out);
-    const newStat = fs.statSync(out);
-    const saved = ((1 - newStat.size / stat.size) * 100).toFixed(0);
-    console.log(`✓ ${base}.webp  (${meta.width}x${meta.height}, ${(stat.size / 1024).toFixed(0)}KB → ${(newStat.size / 1024).toFixed(0)}KB, −${saved}%)`);
+      const meta = await sharp(src).metadata();
+      await sharp(src)
+        .rotate() // авто-поворот по EXIF
+        .webp({ quality: 85, effort: 4 })
+        .toFile(out);
+      const newStat = fs.statSync(out);
+      const saved = ((1 - newStat.size / stat.size) * 100).toFixed(0);
+      console.log(`✓ ${base}.webp  (${meta.width}x${meta.height}, ${(stat.size / 1024).toFixed(0)}KB → ${(newStat.size / 1024).toFixed(0)}KB, −${saved}%)`);
+    }
+
+    // ── 3. Удалить src/image/ ──
+    fs.rmSync(SRC_IMAGE, { recursive: true, force: true });
+    console.log("\n✓ src/image/ удалён");
   }
-
-  // ── 3. Удалить src/image/ ──
-  fs.rmSync(SRC_IMAGE, { recursive: true, force: true });
-  console.log("\n✓ src/image/ удалён");
 
   // ── 4. Итог ──
   console.log("\n=== Готово ===");
