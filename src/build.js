@@ -460,6 +460,14 @@ function injectSeo(html, seo, site) {
     ].join("\n    ");
     html = html.replace(/<\/head>/, `    ${fonts}\n  </head>`);
   }
+  // Главный CSS (main.css) — без него страницы без стилей
+  if (!/<link[^>]+href="[^"]*\/assets\/css\/main\.css/.test(html)) {
+    html = html.replace(/<\/head>/, `    <link rel="stylesheet" href="/assets/css/main.css">\n  </head>`);
+  }
+  // Главный JS (main.js) — мобильное меню, scroll-reveal, форма
+  if (!/<script[^>]+src="[^"]*\/assets\/js\/main\.js/.test(html)) {
+    html = html.replace(/<\/body>/, `    <script src="/assets/js/main.js" defer></script>\n  </body>`);
+  }
   return html;
 }
 
