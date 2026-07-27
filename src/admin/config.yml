@@ -20,6 +20,10 @@ backend:
 media_folder: "src/assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
+# Draft / Review / Publish — клиент правит → жмёт "Опубликовать" → только тогда
+# изменения едут в main и Netlify их подхватывает. Без этого — коммит сразу в main.
+publish_mode: editorial_workflow
+
 # ───────────── Коллекции ─────────────
 
 collections:
