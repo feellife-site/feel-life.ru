@@ -388,37 +388,40 @@ hr {
   position: sticky;
   top: 0;
   z-index: 50;
+  height: 80px; /* фиксированная высота — логотип не должен её менять */
   background: rgba(244, 236, 224, 0.78);
   backdrop-filter: saturate(140%) blur(14px);
   -webkit-backdrop-filter: saturate(140%) blur(14px);
   border-bottom: 1px solid var(--line);
   transition: background var(--duration-base) var(--ease-out-soft);
-  overflow: visible; /* логотип выходит за пределы хедера */
+  overflow: visible; /* логотип ВЫХОДИТ за нижнюю границу */
 }
 .site-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
+  height: 100%;
+  padding: 0 var(--space-6);
   max-width: var(--container-max);
   margin: 0 auto;
   gap: var(--space-8);
-  min-height: 64px;
 }
 .site-logo {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   text-decoration: none;
   color: var(--ink);
+  height: 100%;
+  flex-shrink: 0;
 }
 .site-logo__image {
-  width: 56px;
-  height: 56px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  margin-bottom: -12px; /* выходит за нижнюю границу хедера */
-  box-shadow: 0 4px 14px rgba(28, 24, 20, 0.18);
+  margin-bottom: -20px; /* выходит на 20px за нижнюю границу хедера */
+  box-shadow: 0 6px 18px rgba(28, 24, 20, 0.22);
   background: var(--paper);
   transition: transform var(--duration-base) var(--ease-out-soft);
 }
