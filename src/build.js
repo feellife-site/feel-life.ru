@@ -452,6 +452,19 @@ function injectSeo(html, seo, site) {
   } else {
     html = html.replace(/<\/head>/, `<link rel="canonical" href="${canonical}"></head>`);
   }
+  // favicon / apple-touch-icon — берём .ico/.png если есть, иначе /favicon.png
+  const faviconHref = fs.existsSync(path.join(DIST, "favicon.ico"))
+    ? "/favicon.ico"
+    : fs.existsSync(path.join(DIST, "favicon.png"))
+    ? "/favicon.png"
+    : null;
+  if (faviconHref && !/<link rel="icon"[^>]*>/.test(html)) {
+    const icons = [
+      `<link rel="icon" type="${faviconHref.endsWith(".ico") ? "image/x-icon" : "image/png"}" href="${faviconHref}">`,
+      `<link rel="apple-touch-icon" href="${faviconHref}">`,
+    ].join("\n    ");
+    html = html.replace(/<\/head>/, `    ${icons}\n  </head>`);
+  }
   // Google Fonts (Cormorant Garamond + Manrope + Fraunces)
   if (!/<link[^>]+fonts\.googleapis\.com/.test(html)) {
     const fonts = [
@@ -586,6 +599,12 @@ function main() {
   }
   fs.mkdirSync(DIST, { recursive: true });
 
+  // favicon (ICO/PNG в src/) — копируем ДО сборки страниц, чтобы injectSeo их видел
+  for (const name of ["favicon.ico", "favicon.png"]) {
+    const src = path.join(SRC, name);
+    if (fs.existsSync(src)) copyFile(src, path.join(DIST, name));
+  }
+
   console.log("→ Собираю страницы...");
   buildPages(data);
 
@@ -594,10 +613,6 @@ function main() {
 
   console.log("→ Копирую админку (Decap CMS)...");
   copyDir(ADMIN_DIR, path.join(DIST, "admin"));
-
-  // favicon
-  const favicon = path.join(ROOT, "favicon.svg");
-  if (fs.existsSync(favicon)) copyFile(favicon, path.join(DIST, "favicon.svg"));
 
   console.log(`✓ Сборка готова за ${Date.now() - t0} мс → ${path.relative(ROOT, DIST)}/`);
   console.log(`  Постов: ${data.posts.length} | Туров: ${Object.keys(data.tours).length} | Товаров: ${Object.keys(data.products).length} | Отзывов: ${Object.keys(data.testimonials).length} | Событий: ${Object.keys(data.events).length}`);
