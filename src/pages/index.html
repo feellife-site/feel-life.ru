@@ -14,7 +14,10 @@
     <!-- ===================== HERO ===================== -->
     <section class="hero hero--full" aria-label="Главный экран">
       <div class="hero__bg">
-        <img src="/assets/images/hero/placeholder-hero.svg" alt="Закат над горами и морем в Абхазии" width="1920" height="1080" fetchpriority="high" decoding="async">
+        <picture>
+          <source media="(max-width: 768px)" srcset="/assets/images/hero/placeholder-hero-mobile.svg" type="image/svg+xml" sizes="100vw">
+          <img src="/assets/images/hero/placeholder-hero.svg" alt="Закат над горами и морем в Абхазии" width="1920" height="1080" fetchpriority="high" decoding="async" sizes="100vw">
+        </picture>
       </div>
       <div class="hero__inner">
         <p class="eyebrow eyebrow--inverse" style="color: var(--ink-inverse-muted);">

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Церемония Звука в горах Абхазии — закатное солнце над горами и морем (мобильная версия)">
+  <defs>
+    <linearGradient id="sky-m" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2f24"/>
+      <stop offset="0.4" stop-color="#5e3d28"/>
+      <stop offset="0.75" stop-color="#b5532a"/>
+      <stop offset="1" stop-color="#d27852"/>
+    </linearGradient>
+    <linearGradient id="sea-m" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2218"/>
+      <stop offset="1" stop-color="#1c1a17"/>
+    </linearGradient>
+    <linearGradient id="mtn1-m" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a221a"/>
+      <stop offset="1" stop-color="#131110"/>
+    </linearGradient>
+    <linearGradient id="mtn2-m" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2e22"/>
+      <stop offset="1" stop-color="#1a1612"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#sky-m)"/>
+  <circle cx="540" cy="900" r="220" fill="#f4b072" opacity="0.85"/>
+  <circle cx="540" cy="900" r="180" fill="#e89060" opacity="0.6"/>
+  <path d="M0 1100 L180 950 L320 1000 L450 880 L600 970 L750 900 L900 980 L1080 920 L1080 1920 L0 1920 Z" fill="url(#mtn1-m)"/>
+  <path d="M0 1280 L120 1180 L280 1240 L420 1140 L560 1220 L700 1160 L860 1230 L1080 1180 L1080 1920 L0 1920 Z" fill="url(#mtn2-m)"/>
+  <rect y="1420" width="1080" height="500" fill="url(#sea-m)"/>
+  <g opacity="0.25" stroke="#f4b072" stroke-width="1" fill="none">
+    <path d="M120 1520 Q300 1500 480 1520 T840 1520 T1080 1520"/>
+    <path d="M80 1620 Q260 1600 440 1620 T800 1620 T1080 1620"/>
+    <path d="M40 1720 Q220 1700 400 1720 T760 1720 T1080 1720"/>
+  </g>
+</svg>

@@ -7,7 +7,9 @@
     "build": "node src/build.js",
     "dev": "node src/build.js && npx --yes http-server dist -p 8000 -c-1 --silent",
     "start": "npx --yes http-server dist -p 8000 -c-1",
-    "serve": "npx --yes http-server dist -p 8000 -c-1"
+    "serve": "npx --yes http-server dist -p 8000 -c-1",
+    "deploy": "./scripts/deploy.sh",
+    "deploy:yes": "./scripts/deploy.sh --yes"
   },
   "engines": {
     "node": ">=18"

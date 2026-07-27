@@ -245,10 +245,55 @@ npm run start      # запустить dist/ на http://localhost:8000
 ## 8. Команды
 
 ```bash
-npm run build     # собрать dist/
-npm run start     # запустить dist/ на http://localhost:8000
-npm run dev       # build + start
+npm run build       # собрать dist/
+npm run start       # запустить dist/ на http://localhost:8000
+npm run dev         # build + start
+npm run deploy      # собрать + закоммитить + запушить (с подтверждением)
+npm run deploy:yes  # то же без подтверждения
+./scripts/deploy.sh "сообщение"  # со своим commit message
 ```
+
+---
+
+## 8.1. Баннеры и изображения: размеры под мобайл + десктоп
+
+Поскольку **большинство трафика — с мобильных**, на каждой странице с баннером используется `<picture>` с двумя версиями:
+
+```html
+<picture>
+  <source media="(max-width: 768px)" srcset="…/hero-mobile.svg" sizes="100vw">
+  <img src="…/hero.svg" sizes="100vw" …>
+</picture>
+```
+
+Когда будете заменять SVG-плейсхолдеры на реальные фото, придерживайтесь схемы:
+
+| Слот | Mobile (≤768px) | Desktop | Формат | Имена файлов |
+|---|---|---|---|---|
+| **Hero главная** (full-screen) | 750×1334 (1x) · 1500×2668 (2x retina) | 1920×1080 (1x) · 3840×2160 (2x retina) | WebP + JPEG fallback | `hero-mobile.webp`, `hero.webp` (+ `.jpg` fallback) |
+| **Hero внутренняя** (split) | 750×1000 | 1200×800 | WebP + JPEG fallback | `hero-2-mobile.webp`, `hero-2.webp` |
+| **Обложка поста** | 600×400 | 1200×675 | WebP | `cover.webp` |
+| **Обложка тура** | 600×400 | 1200×675 | WebP | `cover.webp` |
+| **Обложка товара** | 400×400 | 800×800 | WebP | `cover.webp` |
+| **Галерея** | 600×600 | 1200×1200 | WebP | `gallery-N.webp` |
+| **OG-превью** (для шеринга) | — | 1200×630 | JPEG | `og.jpg` |
+
+**Почему так:**
+- `sizes="100vw"` для полноэкранных — браузер знает, что займёт всю ширину viewport, и выберет подходящее разрешение
+- WebP даёт **~30% меньше** JPEG при том же качестве
+- 2x версия для retina (iPhone, Mac) — иначе картинка «мылит»
+- Имена файлов фиксированные → клиент сможет загружать через CMS, а путь в `src/pages/*.html` менять не придётся (правите только при смене концепции)
+
+**Структура в репо:**
+```
+src/assets/images/hero/
+  ├── placeholder-hero.svg              ← десктоп-плейсхолдер (потом замените на hero.webp)
+  ├── placeholder-hero-mobile.svg       ← мобильный плейсхолдер (потом замените на hero-mobile.webp)
+  ├── placeholder-hero-2.svg
+  └── placeholder-hero-2-mobile.svg
+```
+
+**Когда будете заменять:** положите реальные фото рядом (или в новую папку) и обновите `src` в `src/pages/index.html` и `src/pages/sound-healing/index.html`. Структура `<picture>` уже готова.
 
 ---
 

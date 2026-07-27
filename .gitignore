@@ -9,6 +9,7 @@ Thumbs.db
 # Редакторы
 .vscode/
 .idea/
+.trae/
 *.swp
 *.swo
 
