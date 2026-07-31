@@ -474,6 +474,10 @@ function injectSeo(html, seo, site) {
     ].join("\n    ");
     html = html.replace(/<\/head>/, `    ${fonts}\n  </head>`);
   }
+  // Netlify Identity Widget — обработка приглашений и сброса пароля Decap CMS
+  if (!/identity\.netlify\.com\/v1\/netlify-identity-widget/.test(html)) {
+    html = html.replace(/<\/head>/, `    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>\n  </head>`);
+  }
   // Главный CSS (main.css) — без него страницы без стилей
   if (!/<link[^>]+href="[^"]*\/assets\/css\/main\.css/.test(html)) {
     html = html.replace(/<\/head>/, `    <link rel="stylesheet" href="/assets/css/main.css">\n  </head>`);

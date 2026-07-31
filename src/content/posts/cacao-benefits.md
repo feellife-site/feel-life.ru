@@ -5,7 +5,7 @@ date: "2026-04-10"
 author: "MIA IRE"
 readTime: "7 минут"
 tag: "Какао"
-cover: ""
+cover: "/assets/images/blog/cacao-benefits-cover.webp"
 coverAlt: "Медитация с какао на природе"
 excerpt: "Теобромин, магний, антиоксиданты и эмоциональный отклик. Что говорит наука, а что — традиция, и как какао-церемония возвращает в «здесь и сейчас»."
 draft: false

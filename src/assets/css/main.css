@@ -3,6 +3,15 @@
    Премиальный wellness-бренд (Sound Healing, Абхазия)
    ============================================================ */
 
+/* --- Шрифты --- */
+@font-face {
+  font-family: "Seenonim";
+  src: url("/assets/fonts/Seenonim-Regular.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* --- Дизайн-токены (CSS Custom Properties) --- */
 :root {
   /* Цвета */
@@ -447,10 +456,10 @@ hr {
 .site-logo:hover .site-logo__brand {
   opacity: 0.75;
 }
-/* На узких экранах — скрываем надпись, оставляем только круг */
+/* На узких экранах — оставляем надпись, уменьшаем размер */
 @media (max-width: 640px) {
-  .site-logo__brand { display: none; }
-  .site-logo { gap: 0; }
+  .site-logo { gap: 10px; }
+  .site-logo__brand { font-size: 22px; }
 }
 .nav {
   display: none;
