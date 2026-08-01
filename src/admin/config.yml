@@ -1,17 +1,19 @@
-# Decap CMS — production-конфиг для GitHub backend (репо публичное → PAT достаточно)
-# Документация: https://decapcms.org/docs/github-backend/
+# Decap CMS — production-конфиг для Netlify Identity + Git Gateway
+# Документация: https://decapcms.org/docs/git-gateway-backend/
 #
-# При первом сохранении Decap попросит GitHub Personal Access Token (PAT).
-# PAT создаётся здесь: https://github.com/settings/tokens?type=beta
-#   → Generate new token → Fine-grained → Repository access: only feellife-site/feel-life.ru
-#   → Permissions: Contents: Read and write
-# Дальше Decap попросит ввести PAT и запомнит его в браузере.
+# Этот режим самый удобный для редактора:
+#   - вход в /admin/ по email/паролю или invite-ссылке Netlify Identity
+#   - без GitHub-токена в браузере
+#   - коммиты в репозиторий делает Git Gateway
+#
+# Что нужно включить в Netlify:
+#   1. Site configuration -> Identity -> Enable Identity
+#   2. Identity -> Registration -> Invite only
+#   3. Identity -> Services -> Enable Git Gateway
 
 backend:
-  name: github
-  repo: feellife-site/feel-life.ru
+  name: git-gateway
   branch: main
-  open_authoring: false
   commit_messages:
     create: 'cms: create {{collection}} “{{slug}}”'
     update: 'cms: update {{collection}} “{{slug}}”'

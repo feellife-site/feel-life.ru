@@ -1,6 +1,6 @@
 # Деплой MIA IRE (feel-life.ru) с Decap CMS
 
-> **Рекомендованный путь:** Netlify. 10 минут настройки, клиенту выдаёшь логин/пароль — и он сам редактирует.
+> **Рекомендованный путь:** Netlify. 10 минут настройки, клиенту выдаёшь invite / логин, и он сам редактирует без GitHub-токена.
 
 ---
 
@@ -15,13 +15,13 @@
   - `settings/site.json` — настройки сайта (URL: `https://feel-life.ru`)
 
 ✅ Три конфига Decap CMS:
-  - `config.yml` — **production** для Netlify (git-gateway + Netlify Identity)
+  - `config.yml` — **production** для Netlify (Netlify Identity + Git Gateway)
   - `config.local.yml` — для локальной разработки (test-repo, без логина)
   - `config.github.yml` — для production на Cloudflare Pages / Vercel / где угодно (GitHub OAuth)
 
 ✅ Авто-выбор конфига в `admin/index.html`:
   - на `localhost` → `config.local.yml` (без логина, правки в localStorage)
-  - на проде → `config.yml` (git-gateway, Netlify Identity)
+  - на проде → `config.yml` (Netlify Identity + Git Gateway)
   - вручную: `?config=config.github.yml`
 
 ✅ Билдер: `src/build.js` (читает content/, рендерит списки, копирует admin/ → dist/admin/)
@@ -47,7 +47,7 @@ git push -u origin main
 
 ## 2. Деплой на Netlify (5 минут, рекомендую)
 
-Netlify — это и хостинг, и бесплатный сервис аутентификации (Netlify Identity). Клиенту выдаёшь email+пароль, и он через них логинится в админку.
+Netlify — это и хостинг, и сервис аутентификации (Netlify Identity). Клиент логинится в админку по invite / email+паролю, без GitHub-токена в браузере.
 
 ### 2.1. Подключить репозиторий
 

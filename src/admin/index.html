@@ -16,7 +16,7 @@
   <script>
     // Авто-выбор конфига Decap CMS по hostname:
     //   localhost → config.local.yml  (test-repo, без логина, правки в localStorage)
-    //   прод      → config.yml        (git-gateway, Netlify Identity)
+    //   прод      → config.yml        (Netlify Identity + Git Gateway)
     // Можно переопределить вручную: ?config=config.github.yml (Cloudflare / GitHub OAuth)
     (function () {
       var params = new URLSearchParams(window.location.search);
@@ -35,7 +35,7 @@
     Грузится как ESM-скрипт с unpkg.
     Конфиг:
       - на localhost — config.local.yml (test-repo, без логина)
-      - на проде     — config.yml       (git-gateway, Netlify Identity)
+      - на проде     — config.yml       (Netlify Identity + Git Gateway)
     Если нужен другой конфиг: /admin/?config=config.github.yml
   -->
   <script src="https://unpkg.com/decap-cms@^3.7.0/dist/decap-cms.js"></script>

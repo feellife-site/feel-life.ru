@@ -10,8 +10,10 @@
 
 # ───────── Identity (логин для Decap CMS) ─────────
 # После первого деплоя зайди в Netlify → Site settings → Identity → Enable
+# Registration → Invite only
 # Затем в разделе Identity → Services → Enable Git Gateway
-# После этого открой https://feel-life.ru/admin/ и нажми "Login with Netlify Identity"
+# После этого вход в https://feel-life.ru/admin/ будет через удобный логин Netlify Identity,
+# без GitHub-токена в браузере
 
 [[headers]]
   for = "/admin/*"
