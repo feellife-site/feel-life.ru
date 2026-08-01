@@ -1,14 +1,17 @@
-# Decap CMS — production-конфиг для Netlify (git-gateway + Netlify Identity)
-# Документация: https://decapcms.org/docs/configuration-options/
+# Decap CMS — production-конфиг для GitHub backend (репо публичное → PAT достаточно)
+# Документация: https://decapcms.org/docs/github-backend/
 #
-# Используется автоматически на проде (см. admin/index.html).
-# На localhost авто-выбирается config.local.yml (test-repo, без логина).
-# Если деплоишь на Cloudflare Pages / Vercel / куда угодно с GitHub OAuth —
-# открой https://feel-life.ru/admin/?config=config.github.yml
+# При первом сохранении Decap попросит GitHub Personal Access Token (PAT).
+# PAT создаётся здесь: https://github.com/settings/tokens?type=beta
+#   → Generate new token → Fine-grained → Repository access: only feellife-site/feel-life.ru
+#   → Permissions: Contents: Read and write
+# Дальше Decap попросит ввести PAT и запомнит его в браузере.
 
 backend:
-  name: git-gateway
+  name: github
+  repo: feellife-site/feel-life.ru
   branch: main
+  open_authoring: false
   commit_messages:
     create: 'cms: create {{collection}} “{{slug}}”'
     update: 'cms: update {{collection}} “{{slug}}”'
@@ -180,3 +183,1135 @@ collections:
           { label: "Месяц (3 буквы)", name: "month", widget: "string" },
           { label: "Год", name: "year", widget: "string" },
         ]}
+
+  # ── Страницы (JSON, по файлу на страницу) ──
+  - name: "pages"
+    label: "Страницы"
+    label_singular: "Страница"
+    description: "Контент страниц сайта: meta, hero, секции. Каждая страница — отдельный JSON-файл."
+    editor:
+      preview: false
+    files:
+      - name: "home"
+        label: "Главная"
+        file: "src/content/pages/home.json"
+        format: "json"
+        fields:
+          - { label: "SEO", name: "meta", widget: "object", fields: [
+              { label: "Title (title)", name: "title", widget: "string" },
+              { label: "Description (meta)", name: "description", widget: "text" },
+            ]}
+          - { label: "Hero (главный экран)", name: "hero", widget: "object", fields: [
+              { label: "Надзаголовок (eyebrow)", name: "eyebrow", widget: "string", required: false },
+              { label: "Заголовок", name: "title", widget: "string" },
+              { label: "Подзаголовок", name: "subtitle", widget: "text", required: false },
+              { label: "Lede (вводный текст для subhero)", name: "lede", widget: "text", required: false },
+              { label: "Кнопки действий", name: "actions", widget: "list", required: false, fields: [
+                  { label: "Текст кнопки", name: "label", widget: "string" },
+                  { label: "Ссылка", name: "href", widget: "string" },
+                  { label: "Primary (основная)", name: "primary", widget: "boolean", default: true },
+                ]},
+              { label: "Мета-информация (для hero--full)", name: "meta", widget: "list", required: false, fields: [
+                  { label: "Подпись", name: "label", widget: "string" },
+                  { label: "Значение", name: "value", widget: "string" },
+                ]},
+              { label: "Фон (изображение)", name: "bg", widget: "object", required: false, fields: [
+                  { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                  { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                  { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                ]},
+            ]}
+          - { label: "Секции", name: "sections", widget: "list", required: false,
+              summary: "{{fields.type}} — {{fields.title | default: '(без заголовка)'}}",
+              fields: [
+                { label: "Тип секции", name: "type", widget: "string", required: false,
+                  hint: "Например: directions, stats, about-preview, events, testimonials, blog-preview, cta, about-author, values, timeline, why-abkhazia, approach, tours-list, included, split, split-reverse, process, preparation, events-static, about-practice, video, formats, products, delivery, contacts-grid, faq, blog-list" },
+                { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                { label: "Заголовок", name: "title", widget: "string", required: false },
+                { label: "Вводный текст (lede)", name: "lede", widget: "text", required: false },
+                { label: "Подзаголовок (subheading)", name: "subheading", widget: "string", required: false },
+                { label: "Закрывающий текст", name: "closing", widget: "text", required: false },
+                { label: "Служебная пометка (serviceNote)", name: "serviceNote", widget: "text", required: false },
+                { label: "Изображение", name: "image", widget: "object", required: false, fields: [
+                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Мобильное", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Постер (видео)", name: "poster", widget: "object", required: false, fields: [
+                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Список (dotted-list / bullets)", name: "list", widget: "list", required: false,
+                    field: { label: "Пункт", name: "item", widget: "string" }},
+                { label: "Абзацы", name: "paragraphs", widget: "list", required: false,
+                    field: { label: "Абзац", name: "p", widget: "text" }},
+                { label: "Кнопка CTA (секции)", name: "cta", widget: "object", required: false, fields: [
+                    { label: "Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                  ]},
+                { label: "Общие действия (actions)", name: "actions", widget: "list", required: false, fields: [
+                    { label: "Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Primary", name: "primary", widget: "boolean", default: true },
+                  ]},
+                { label: "Контакты (для CTA-секции)", name: "contacts", widget: "object", required: false, fields: [
+                    { label: "Подпись блока", name: "label", widget: "string", required: false },
+                    { label: "Email", name: "email", widget: "string", required: false },
+                    { label: "Телефон (отображение)", name: "phone", widget: "string", required: false },
+                    { label: "Телефон (tel:)", name: "phoneTel", widget: "string", required: false },
+                    { label: "Telegram (текст)", name: "telegram", widget: "string", required: false },
+                    { label: "Telegram URL", name: "telegramUrl", widget: "string", required: false },
+                  ]},
+                { label: "Статистика (stats)", name: "items", widget: "list", required: false,
+                    summary: "{{fields.label}} — {{fields.num}}",
+                    fields: [
+                      { label: "Число", name: "num", widget: "string" },
+                      { label: "Подпись", name: "label", widget: "string" },
+                      { label: "Нумерация (prefix/num)", name: "prefix", widget: "string", required: false },
+                    ]},
+                { label: "Карточки (directions, values, numbered, formats)", name: "cards", widget: "list", required: false,
+                    summary: "{{fields.title}}",
+                    fields: [
+                      { label: "Номер / Префикс", name: "num", widget: "string", required: false },
+                      { label: "Заголовок", name: "title", widget: "string" },
+                      { label: "Описание", name: "desc", widget: "text", required: false },
+                      { label: "Href (ссылка)", name: "href", widget: "string", required: false },
+                      { label: "CTA-текст", name: "cta", widget: "string", required: false },
+                    ]},
+                { label: "Таймлайн (timeline)", name: "timeline", widget: "list", required: false,
+                    summary: "{{fields.year}} — {{fields.title}}",
+                    fields: [
+                      { label: "Год", name: "year", widget: "string" },
+                      { label: "Заголовок", name: "title", widget: "string" },
+                      { label: "Описание", name: "desc", widget: "text" },
+                    ]},
+                { label: "Шаги (process)", name: "steps", widget: "list", required: false,
+                    summary: "{{fields.title}}",
+                    fields: [
+                      { label: "Заголовок шага", name: "title", widget: "string" },
+                      { label: "Описание", name: "desc", widget: "text" },
+                    ]},
+                { label: "Правила подготовки (list)", name: "rules", widget: "list", required: false,
+                    field: { label: "Правило", name: "rule", widget: "text" }},
+                { label: "Статические события (events-static)", name: "eventsStatic", widget: "list", required: false,
+                    summary: "{{fields.title}}",
+                    fields: [
+                      { label: "Дата", name: "date", widget: "object", fields: [
+                          { label: "День", name: "day", widget: "string" },
+                          { label: "Месяц", name: "month", widget: "string" },
+                        ]},
+                      { label: "Заголовок", name: "title", widget: "string" },
+                      { label: "Meta (длительность, локация)", name: "meta", widget: "string", required: false },
+                      { label: "Ссылка", name: "href", widget: "string", required: false },
+                    ]},
+                { label: "Блок контактов (contacts-grid)", name: "contactsBlock", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Список контактов", name: "items", widget: "list", fields: [
+                        { label: "Подпись", name: "label", widget: "string" },
+                        { label: "Значение", name: "value", widget: "string" },
+                        { label: "Ссылка (href)", name: "href", widget: "string", required: false },
+                        { label: "Примечание", name: "note", widget: "text", required: false },
+                      ]},
+                  ]},
+                { label: "Форма (contacts-grid → form)", name: "form", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Вводный текст", name: "lede", widget: "text", required: false },
+                    { label: "Поля формы", name: "fields", widget: "list", required: false, fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Name", name: "name", widget: "string" },
+                        { label: "Тип", name: "type", widget: "select", options: ["text", "textarea", "select"] },
+                        { label: "Placeholder", name: "placeholder", widget: "string", required: false },
+                        { label: "Обязательное", name: "required", widget: "boolean", default: true },
+                        { label: "Строк (textarea)", name: "rows", widget: "number", value_type: "int", required: false },
+                        { label: "Опции (select)", name: "options", widget: "list", required: false, fields: [
+                            { label: "Подпись / Текст", name: "label", widget: "string" },
+                            { label: "Value", name: "value", widget: "string" },
+                          ]},
+                      ]},
+                    { label: "Согласие", name: "agreement", widget: "text", required: false },
+                    { label: "Текст кнопки", name: "submitLabel", widget: "string" },
+                  ]},
+                { label: "FAQ", name: "faq", widget: "list", required: false,
+                    summary: "{{fields.question}}",
+                    fields: [
+                      { label: "Вопрос", name: "question", widget: "text" },
+                      { label: "Ответ", name: "answer", widget: "text" },
+                    ]},
+                { label: "Статьи блога (blog-list)", name: "blogItems", widget: "list", required: false,
+                    summary: "{{fields.title}}",
+                    fields: [
+                      { label: "Slug", name: "slug", widget: "string" },
+                      { label: "Тег", name: "tag", widget: "string", required: false },
+                      { label: "Дата (ISO)", name: "date", widget: "string" },
+                      { label: "Дата (отображение)", name: "dateDisplay", widget: "string", required: false },
+                      { label: "Время чтения", name: "readTime", widget: "string", required: false },
+                      { label: "Заголовок", name: "title", widget: "string" },
+                      { label: "Описание (excerpt)", name: "desc", widget: "text", required: false },
+                      { label: "Обложка", name: "cover", widget: "object", required: false, fields: [
+                          { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
+                          { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                        ]},
+                    ]},
+              ]}
+
+      - name: "about"
+        label: "О нас"
+        file: "src/content/pages/about.json"
+        format: "json"
+        fields:
+          - { label: "SEO", name: "meta", widget: "object", fields: [
+              { label: "Title (title)", name: "title", widget: "string" },
+              { label: "Description (meta)", name: "description", widget: "text" },
+            ]}
+          - { label: "Hero (subhero)", name: "hero", widget: "object", fields: [
+              { label: "Надзаголовок (eyebrow)", name: "eyebrow", widget: "string", required: false },
+              { label: "Заголовок", name: "title", widget: "string" },
+              { label: "Lede (вводный текст)", name: "lede", widget: "text", required: false },
+            ]}
+          - { label: "Секции", name: "sections", widget: "list", required: false,
+              summary: "{{fields.type}} — {{fields.title | default: '(без заголовка)'}}",
+              fields: [
+                { label: "Тип секции", name: "type", widget: "string", required: false },
+                { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                { label: "Заголовок", name: "title", widget: "string", required: false },
+                { label: "Lede", name: "lede", widget: "text", required: false },
+                { label: "Subheading", name: "subheading", widget: "string", required: false },
+                { label: "Lede (краткое описание)", name: "ledeText", widget: "text", required: false },
+                { label: "Закрывающий текст", name: "closing", widget: "text", required: false },
+                { label: "Service note", name: "serviceNote", widget: "text", required: false },
+                { label: "Изображение", name: "image", widget: "object", required: false, fields: [
+                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Мобильное", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Постер", name: "poster", widget: "object", required: false, fields: [
+                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Список (list)", name: "list", widget: "list", required: false,
+                    field: { label: "Пункт", name: "item", widget: "string" }},
+                { label: "Абзацы (paragraphs)", name: "paragraphs", widget: "list", required: false,
+                    field: { label: "Абзац", name: "p", widget: "text" }},
+                { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
+                    { label: "Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                  ]},
+                { label: "Actions (общие)", name: "actions", widget: "list", required: false, fields: [
+                    { label: "Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Primary", name: "primary", widget: "boolean", default: true },
+                  ]},
+                { label: "Контакты CTA", name: "contacts", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Email", name: "email", widget: "string", required: false },
+                    { label: "Телефон", name: "phone", widget: "string", required: false },
+                    { label: "Телефон tel", name: "phoneTel", widget: "string", required: false },
+                    { label: "Telegram", name: "telegram", widget: "string", required: false },
+                    { label: "Telegram URL", name: "telegramUrl", widget: "string", required: false },
+                  ]},
+                { label: "Статистика / цифры (stats/items)", name: "items", widget: "list", required: false, fields: [
+                    { label: "Число", name: "num", widget: "string" },
+                    { label: "Подпись", name: "label", widget: "string" },
+                    { label: "Номер / префикс", name: "prefix", widget: "string", required: false },
+                    { label: "Описание (desc)", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA текст", name: "ctaText", widget: "string", required: false },
+                  ]},
+                { label: "Карточки (cards)", name: "cards", widget: "list", required: false, fields: [
+                    { label: "Номер/Префикс", name: "num", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Описание", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA текст", name: "cta", widget: "string", required: false },
+                  ]},
+                { label: "Таймлайн", name: "timeline", widget: "list", required: false, fields: [
+                    { label: "Год", name: "year", widget: "string" },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Описание", name: "desc", widget: "text" },
+                  ]},
+                { label: "Шаги (process)", name: "steps", widget: "list", required: false, fields: [
+                    { label: "Заголовок шага", name: "title", widget: "string" },
+                    { label: "Описание", name: "desc", widget: "text" },
+                  ]},
+                { label: "Правила подготовки", name: "rules", widget: "list", required: false,
+                    field: { label: "Правило", name: "rule", widget: "text" }},
+                { label: "Статические события", name: "eventsStatic", widget: "list", required: false, fields: [
+                    { label: "Дата", name: "date", widget: "object", fields: [
+                        { label: "День", name: "day", widget: "string" },
+                        { label: "Месяц", name: "month", widget: "string" },
+                      ]},
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Meta", name: "meta", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                  ]},
+                { label: "Блок контактов", name: "contactsBlock", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Контакты (items)", name: "items", widget: "list", fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Value", name: "value", widget: "string" },
+                        { label: "Ссылка", name: "href", widget: "string", required: false },
+                        { label: "Note", name: "note", widget: "text", required: false },
+                      ]},
+                  ]},
+                { label: "Форма", name: "form", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Lede", name: "lede", widget: "text", required: false },
+                    { label: "Поля формы", name: "fields", widget: "list", required: false, fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Name", name: "name", widget: "string" },
+                        { label: "Тип", name: "type", widget: "select", options: ["text", "textarea", "select"] },
+                        { label: "Placeholder", name: "placeholder", widget: "string", required: false },
+                        { label: "Required", name: "required", widget: "boolean", default: true },
+                        { label: "Rows", name: "rows", widget: "number", value_type: "int", required: false },
+                        { label: "Options", name: "options", widget: "list", required: false, fields: [
+                            { label: "Подпись / Текст", name: "label", widget: "string" },
+                            { label: "Value", name: "value", widget: "string" },
+                          ]},
+                      ]},
+                    { label: "Согласие", name: "agreement", widget: "text", required: false },
+                    { label: "Submit label", name: "submitLabel", widget: "string" },
+                  ]},
+                { label: "FAQ", name: "faq", widget: "list", required: false, fields: [
+                    { label: "Вопрос", name: "question", widget: "text" },
+                    { label: "Ответ", name: "answer", widget: "text" },
+                  ]},
+                { label: "Статьи блога", name: "blogItems", widget: "list", required: false, fields: [
+                    { label: "Slug", name: "slug", widget: "string" },
+                    { label: "Tag", name: "tag", widget: "string", required: false },
+                    { label: "Date ISO", name: "date", widget: "string" },
+                    { label: "Date display", name: "dateDisplay", widget: "string", required: false },
+                    { label: "Read time", name: "readTime", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Описание", name: "desc", widget: "text", required: false },
+                    { label: "Обложка", name: "cover", widget: "object", required: false, fields: [
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                      ]},
+                  ]},
+              ]}
+
+      - name: "tours"
+        label: "Туры"
+        file: "src/content/pages/tours.json"
+        format: "json"
+        fields:
+          - { label: "SEO", name: "meta", widget: "object", fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Description", name: "description", widget: "text" },
+            ]}
+          - { label: "Hero (subhero)", name: "hero", widget: "object", fields: [
+              { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+              { label: "Заголовок", name: "title", widget: "string" },
+              { label: "Lede", name: "lede", widget: "text", required: false },
+            ]}
+          - { label: "Секции", name: "sections", widget: "list", required: false,
+              summary: "{{fields.type}} — {{fields.title | default: '(без заголовка)'}}",
+              fields: [
+                { label: "Тип секции", name: "type", widget: "string", required: false },
+                { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                { label: "Заголовок", name: "title", widget: "string", required: false },
+                { label: "Lede", name: "lede", widget: "text", required: false },
+                { label: "Subheading", name: "subheading", widget: "string", required: false },
+                { label: "Lede", name: "ledeText", widget: "text", required: false },
+                { label: "Закрывающий текст", name: "closing", widget: "text", required: false },
+                { label: "Service note", name: "serviceNote", widget: "text", required: false },
+                { label: "Изображение", name: "image", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Постер", name: "poster", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
+                { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
+                { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                  ]},
+                { label: "Actions", name: "actions", widget: "list", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Primary", name: "primary", widget: "boolean", default: true },
+                  ]},
+                { label: "Контакты CTA", name: "contacts", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Email", name: "email", widget: "string", required: false },
+                    { label: "Телефон", name: "phone", widget: "string", required: false },
+                    { label: "Телефон tel", name: "phoneTel", widget: "string", required: false },
+                    { label: "Telegram", name: "telegram", widget: "string", required: false },
+                    { label: "Telegram URL", name: "telegramUrl", widget: "string", required: false },
+                  ]},
+                { label: "Items (stats/cards/numbered)", name: "items", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Prefix", name: "prefix", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string", required: false },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "ctaText", widget: "string", required: false },
+                  ]},
+                { label: "Cards", name: "cards", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "cta", widget: "string", required: false },
+                  ]},
+                { label: "Timeline", name: "timeline", widget: "list", required: false, fields: [
+                    { label: "Year", name: "year", widget: "string" },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Steps (process)", name: "steps", widget: "list", required: false, fields: [
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Rules (preparation)", name: "rules", widget: "list", required: false,
+                    field: { label: "Правило", name: "rule", widget: "text" }},
+                { label: "Static events", name: "eventsStatic", widget: "list", required: false, fields: [
+                    { label: "Дата", name: "date", widget: "object", fields: [
+                        { label: "День", name: "day", widget: "string" },
+                        { label: "Месяц", name: "month", widget: "string" },
+                      ]},
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Meta", name: "meta", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                  ]},
+                { label: "Contacts block", name: "contactsBlock", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Items", name: "items", widget: "list", fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Value", name: "value", widget: "string" },
+                        { label: "Ссылка", name: "href", widget: "string", required: false },
+                        { label: "Note", name: "note", widget: "text", required: false },
+                      ]},
+                  ]},
+                { label: "Form", name: "form", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Lede", name: "lede", widget: "text", required: false },
+                    { label: "Fields", name: "fields", widget: "list", required: false, fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Name", name: "name", widget: "string" },
+                        { label: "Тип", name: "type", widget: "select", options: ["text", "textarea", "select"] },
+                        { label: "Placeholder", name: "placeholder", widget: "string", required: false },
+                        { label: "Required", name: "required", widget: "boolean", default: true },
+                        { label: "Rows", name: "rows", widget: "number", value_type: "int", required: false },
+                        { label: "Options", name: "options", widget: "list", required: false, fields: [
+                            { label: "Подпись / Текст", name: "label", widget: "string" },
+                            { label: "Value", name: "value", widget: "string" },
+                          ]},
+                      ]},
+                    { label: "Agreement", name: "agreement", widget: "text", required: false },
+                    { label: "Submit label", name: "submitLabel", widget: "string" },
+                  ]},
+                { label: "FAQ", name: "faq", widget: "list", required: false, fields: [
+                    { label: "Вопрос", name: "question", widget: "text" },
+                    { label: "Ответ", name: "answer", widget: "text" },
+                  ]},
+                { label: "Blog items", name: "blogItems", widget: "list", required: false, fields: [
+                    { label: "Slug", name: "slug", widget: "string" },
+                    { label: "Tag", name: "tag", widget: "string", required: false },
+                    { label: "Date", name: "date", widget: "string" },
+                    { label: "Date display", name: "dateDisplay", widget: "string", required: false },
+                    { label: "Read time", name: "readTime", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Cover", name: "cover", widget: "object", required: false, fields: [
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                      ]},
+                  ]},
+              ]}
+
+      - name: "cacao"
+        label: "Какао-церемония"
+        file: "src/content/pages/cacao.json"
+        format: "json"
+        fields:
+          - { label: "SEO", name: "meta", widget: "object", fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Description", name: "description", widget: "text" },
+            ]}
+          - { label: "Hero (subhero)", name: "hero", widget: "object", fields: [
+              { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+              { label: "Заголовок", name: "title", widget: "string" },
+              { label: "Lede", name: "lede", widget: "text", required: false },
+            ]}
+          - { label: "Секции", name: "sections", widget: "list", required: false,
+              summary: "{{fields.type}} — {{fields.title | default: '(без заголовка)'}}",
+              fields: [
+                { label: "Тип секции", name: "type", widget: "string", required: false },
+                { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                { label: "Заголовок", name: "title", widget: "string", required: false },
+                { label: "Lede", name: "lede", widget: "text", required: false },
+                { label: "Subheading", name: "subheading", widget: "string", required: false },
+                { label: "Lede", name: "ledeText", widget: "text", required: false },
+                { label: "Closing", name: "closing", widget: "text", required: false },
+                { label: "Service note", name: "serviceNote", widget: "text", required: false },
+                { label: "Изображение", name: "image", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Постер", name: "poster", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
+                { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
+                { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                  ]},
+                { label: "Actions", name: "actions", widget: "list", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Primary", name: "primary", widget: "boolean", default: true },
+                  ]},
+                { label: "Контакты CTA", name: "contacts", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Email", name: "email", widget: "string", required: false },
+                    { label: "Телефон", name: "phone", widget: "string", required: false },
+                    { label: "Телефон tel", name: "phoneTel", widget: "string", required: false },
+                    { label: "Telegram", name: "telegram", widget: "string", required: false },
+                    { label: "Telegram URL", name: "telegramUrl", widget: "string", required: false },
+                  ]},
+                { label: "Items (stats/numbered)", name: "items", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Prefix", name: "prefix", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string", required: false },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "ctaText", widget: "string", required: false },
+                  ]},
+                { label: "Cards", name: "cards", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "cta", widget: "string", required: false },
+                  ]},
+                { label: "Timeline", name: "timeline", widget: "list", required: false, fields: [
+                    { label: "Year", name: "year", widget: "string" },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Steps (process)", name: "steps", widget: "list", required: false, fields: [
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Rules (preparation)", name: "rules", widget: "list", required: false,
+                    field: { label: "Правило", name: "rule", widget: "text" }},
+                { label: "Static events", name: "eventsStatic", widget: "list", required: false, fields: [
+                    { label: "Дата", name: "date", widget: "object", fields: [
+                        { label: "День", name: "day", widget: "string" },
+                        { label: "Месяц", name: "month", widget: "string" },
+                      ]},
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Meta", name: "meta", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                  ]},
+                { label: "Contacts block", name: "contactsBlock", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Items", name: "items", widget: "list", fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Value", name: "value", widget: "string" },
+                        { label: "Ссылка", name: "href", widget: "string", required: false },
+                        { label: "Note", name: "note", widget: "text", required: false },
+                      ]},
+                  ]},
+                { label: "Form", name: "form", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Lede", name: "lede", widget: "text", required: false },
+                    { label: "Fields", name: "fields", widget: "list", required: false, fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Name", name: "name", widget: "string" },
+                        { label: "Тип", name: "type", widget: "select", options: ["text", "textarea", "select"] },
+                        { label: "Placeholder", name: "placeholder", widget: "string", required: false },
+                        { label: "Required", name: "required", widget: "boolean", default: true },
+                        { label: "Rows", name: "rows", widget: "number", value_type: "int", required: false },
+                        { label: "Options", name: "options", widget: "list", required: false, fields: [
+                            { label: "Подпись / Текст", name: "label", widget: "string" },
+                            { label: "Value", name: "value", widget: "string" },
+                          ]},
+                      ]},
+                    { label: "Agreement", name: "agreement", widget: "text", required: false },
+                    { label: "Submit label", name: "submitLabel", widget: "string" },
+                  ]},
+                { label: "FAQ", name: "faq", widget: "list", required: false, fields: [
+                    { label: "Вопрос", name: "question", widget: "text" },
+                    { label: "Ответ", name: "answer", widget: "text" },
+                  ]},
+                { label: "Blog items", name: "blogItems", widget: "list", required: false, fields: [
+                    { label: "Slug", name: "slug", widget: "string" },
+                    { label: "Tag", name: "tag", widget: "string", required: false },
+                    { label: "Date", name: "date", widget: "string" },
+                    { label: "Date display", name: "dateDisplay", widget: "string", required: false },
+                    { label: "Read time", name: "readTime", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Cover", name: "cover", widget: "object", required: false, fields: [
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                      ]},
+                  ]},
+              ]}
+
+      - name: "sound-healing"
+        label: "Церемония Звука (страница)"
+        file: "src/content/pages/sound-healing.json"
+        format: "json"
+        fields:
+          - { label: "SEO", name: "meta", widget: "object", fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Description", name: "description", widget: "text" },
+            ]}
+          - { label: "Hero (subhero)", name: "hero", widget: "object", fields: [
+              { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+              { label: "Заголовок", name: "title", widget: "string" },
+              { label: "Lede", name: "lede", widget: "text", required: false },
+            ]}
+          - { label: "Секции", name: "sections", widget: "list", required: false,
+              summary: "{{fields.type}} — {{fields.title | default: '(без заголовка)'}}",
+              fields: [
+                { label: "Тип секции", name: "type", widget: "string", required: false },
+                { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                { label: "Заголовок", name: "title", widget: "string", required: false },
+                { label: "Lede", name: "lede", widget: "text", required: false },
+                { label: "Subheading", name: "subheading", widget: "string", required: false },
+                { label: "Lede", name: "ledeText", widget: "text", required: false },
+                { label: "Closing", name: "closing", widget: "text", required: false },
+                { label: "Service note", name: "serviceNote", widget: "text", required: false },
+                { label: "Изображение", name: "image", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Постер", name: "poster", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
+                { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
+                { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                  ]},
+                { label: "Actions", name: "actions", widget: "list", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Primary", name: "primary", widget: "boolean", default: true },
+                  ]},
+                { label: "Контакты CTA", name: "contacts", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Email", name: "email", widget: "string", required: false },
+                    { label: "Телефон", name: "phone", widget: "string", required: false },
+                    { label: "Телефон tel", name: "phoneTel", widget: "string", required: false },
+                    { label: "Telegram", name: "telegram", widget: "string", required: false },
+                    { label: "Telegram URL", name: "telegramUrl", widget: "string", required: false },
+                  ]},
+                { label: "Items (stats/numbered)", name: "items", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Prefix", name: "prefix", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string", required: false },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "ctaText", widget: "string", required: false },
+                  ]},
+                { label: "Cards", name: "cards", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "cta", widget: "string", required: false },
+                  ]},
+                { label: "Timeline", name: "timeline", widget: "list", required: false, fields: [
+                    { label: "Year", name: "year", widget: "string" },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Steps (process)", name: "steps", widget: "list", required: false, fields: [
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Rules (preparation)", name: "rules", widget: "list", required: false,
+                    field: { label: "Правило", name: "rule", widget: "text" }},
+                { label: "Static events", name: "eventsStatic", widget: "list", required: false, fields: [
+                    { label: "Дата", name: "date", widget: "object", fields: [
+                        { label: "День", name: "day", widget: "string" },
+                        { label: "Месяц", name: "month", widget: "string" },
+                      ]},
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Meta", name: "meta", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                  ]},
+                { label: "Contacts block", name: "contactsBlock", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Items", name: "items", widget: "list", fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Value", name: "value", widget: "string" },
+                        { label: "Ссылка", name: "href", widget: "string", required: false },
+                        { label: "Note", name: "note", widget: "text", required: false },
+                      ]},
+                  ]},
+                { label: "Form", name: "form", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Lede", name: "lede", widget: "text", required: false },
+                    { label: "Fields", name: "fields", widget: "list", required: false, fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Name", name: "name", widget: "string" },
+                        { label: "Тип", name: "type", widget: "select", options: ["text", "textarea", "select"] },
+                        { label: "Placeholder", name: "placeholder", widget: "string", required: false },
+                        { label: "Required", name: "required", widget: "boolean", default: true },
+                        { label: "Rows", name: "rows", widget: "number", value_type: "int", required: false },
+                        { label: "Options", name: "options", widget: "list", required: false, fields: [
+                            { label: "Подпись / Текст", name: "label", widget: "string" },
+                            { label: "Value", name: "value", widget: "string" },
+                          ]},
+                      ]},
+                    { label: "Agreement", name: "agreement", widget: "text", required: false },
+                    { label: "Submit label", name: "submitLabel", widget: "string" },
+                  ]},
+                { label: "FAQ", name: "faq", widget: "list", required: false, fields: [
+                    { label: "Вопрос", name: "question", widget: "text" },
+                    { label: "Ответ", name: "answer", widget: "text" },
+                  ]},
+                { label: "Blog items", name: "blogItems", widget: "list", required: false, fields: [
+                    { label: "Slug", name: "slug", widget: "string" },
+                    { label: "Tag", name: "tag", widget: "string", required: false },
+                    { label: "Date", name: "date", widget: "string" },
+                    { label: "Date display", name: "dateDisplay", widget: "string", required: false },
+                    { label: "Read time", name: "readTime", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Cover", name: "cover", widget: "object", required: false, fields: [
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                      ]},
+                  ]},
+              ]}
+
+      - name: "shop"
+        label: "Магазин (страница)"
+        file: "src/content/pages/shop.json"
+        format: "json"
+        fields:
+          - { label: "SEO", name: "meta", widget: "object", fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Description", name: "description", widget: "text" },
+            ]}
+          - { label: "Hero (subhero)", name: "hero", widget: "object", fields: [
+              { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+              { label: "Заголовок", name: "title", widget: "string" },
+              { label: "Lede", name: "lede", widget: "text", required: false },
+            ]}
+          - { label: "Секции", name: "sections", widget: "list", required: false,
+              summary: "{{fields.type}} — {{fields.title | default: '(без заголовка)'}}",
+              fields: [
+                { label: "Тип секции", name: "type", widget: "string", required: false },
+                { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                { label: "Заголовок", name: "title", widget: "string", required: false },
+                { label: "Lede", name: "lede", widget: "text", required: false },
+                { label: "Subheading", name: "subheading", widget: "string", required: false },
+                { label: "Lede", name: "ledeText", widget: "text", required: false },
+                { label: "Closing", name: "closing", widget: "text", required: false },
+                { label: "Service note", name: "serviceNote", widget: "text", required: false },
+                { label: "Изображение", name: "image", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Постер", name: "poster", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
+                { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
+                { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                  ]},
+                { label: "Actions", name: "actions", widget: "list", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Primary", name: "primary", widget: "boolean", default: true },
+                  ]},
+                { label: "Контакты CTA", name: "contacts", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Email", name: "email", widget: "string", required: false },
+                    { label: "Телефон", name: "phone", widget: "string", required: false },
+                    { label: "Телефон tel", name: "phoneTel", widget: "string", required: false },
+                    { label: "Telegram", name: "telegram", widget: "string", required: false },
+                    { label: "Telegram URL", name: "telegramUrl", widget: "string", required: false },
+                  ]},
+                { label: "Items (stats/numbered)", name: "items", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Prefix", name: "prefix", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string", required: false },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "ctaText", widget: "string", required: false },
+                  ]},
+                { label: "Cards", name: "cards", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "cta", widget: "string", required: false },
+                  ]},
+                { label: "Timeline", name: "timeline", widget: "list", required: false, fields: [
+                    { label: "Year", name: "year", widget: "string" },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Steps (process)", name: "steps", widget: "list", required: false, fields: [
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Rules (preparation)", name: "rules", widget: "list", required: false,
+                    field: { label: "Правило", name: "rule", widget: "text" }},
+                { label: "Static events", name: "eventsStatic", widget: "list", required: false, fields: [
+                    { label: "Дата", name: "date", widget: "object", fields: [
+                        { label: "День", name: "day", widget: "string" },
+                        { label: "Месяц", name: "month", widget: "string" },
+                      ]},
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Meta", name: "meta", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                  ]},
+                { label: "Contacts block", name: "contactsBlock", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Items", name: "items", widget: "list", fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Value", name: "value", widget: "string" },
+                        { label: "Ссылка", name: "href", widget: "string", required: false },
+                        { label: "Note", name: "note", widget: "text", required: false },
+                      ]},
+                  ]},
+                { label: "Form", name: "form", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Lede", name: "lede", widget: "text", required: false },
+                    { label: "Fields", name: "fields", widget: "list", required: false, fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Name", name: "name", widget: "string" },
+                        { label: "Тип", name: "type", widget: "select", options: ["text", "textarea", "select"] },
+                        { label: "Placeholder", name: "placeholder", widget: "string", required: false },
+                        { label: "Required", name: "required", widget: "boolean", default: true },
+                        { label: "Rows", name: "rows", widget: "number", value_type: "int", required: false },
+                        { label: "Options", name: "options", widget: "list", required: false, fields: [
+                            { label: "Подпись / Текст", name: "label", widget: "string" },
+                            { label: "Value", name: "value", widget: "string" },
+                          ]},
+                      ]},
+                    { label: "Agreement", name: "agreement", widget: "text", required: false },
+                    { label: "Submit label", name: "submitLabel", widget: "string" },
+                  ]},
+                { label: "FAQ", name: "faq", widget: "list", required: false, fields: [
+                    { label: "Вопрос", name: "question", widget: "text" },
+                    { label: "Ответ", name: "answer", widget: "text" },
+                  ]},
+                { label: "Blog items", name: "blogItems", widget: "list", required: false, fields: [
+                    { label: "Slug", name: "slug", widget: "string" },
+                    { label: "Tag", name: "tag", widget: "string", required: false },
+                    { label: "Date", name: "date", widget: "string" },
+                    { label: "Date display", name: "dateDisplay", widget: "string", required: false },
+                    { label: "Read time", name: "readTime", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Cover", name: "cover", widget: "object", required: false, fields: [
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                      ]},
+                  ]},
+              ]}
+
+      - name: "contacts"
+        label: "Контакты"
+        file: "src/content/pages/contacts.json"
+        format: "json"
+        fields:
+          - { label: "SEO", name: "meta", widget: "object", fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Description", name: "description", widget: "text" },
+            ]}
+          - { label: "Hero (subhero)", name: "hero", widget: "object", fields: [
+              { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+              { label: "Заголовок", name: "title", widget: "string" },
+              { label: "Lede", name: "lede", widget: "text", required: false },
+            ]}
+          - { label: "Секции", name: "sections", widget: "list", required: false,
+              summary: "{{fields.type}} — {{fields.title | default: '(без заголовка)'}}",
+              fields: [
+                { label: "Тип секции", name: "type", widget: "string", required: false },
+                { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                { label: "Заголовок", name: "title", widget: "string", required: false },
+                { label: "Lede", name: "lede", widget: "text", required: false },
+                { label: "Subheading", name: "subheading", widget: "string", required: false },
+                { label: "Lede", name: "ledeText", widget: "text", required: false },
+                { label: "Closing", name: "closing", widget: "text", required: false },
+                { label: "Service note", name: "serviceNote", widget: "text", required: false },
+                { label: "Изображение", name: "image", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Постер", name: "poster", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
+                { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
+                { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                  ]},
+                { label: "Actions", name: "actions", widget: "list", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Primary", name: "primary", widget: "boolean", default: true },
+                  ]},
+                { label: "Контакты CTA", name: "contacts", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Email", name: "email", widget: "string", required: false },
+                    { label: "Телефон", name: "phone", widget: "string", required: false },
+                    { label: "Телефон tel", name: "phoneTel", widget: "string", required: false },
+                    { label: "Telegram", name: "telegram", widget: "string", required: false },
+                    { label: "Telegram URL", name: "telegramUrl", widget: "string", required: false },
+                  ]},
+                { label: "Items (stats/numbered)", name: "items", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Prefix", name: "prefix", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string", required: false },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "ctaText", widget: "string", required: false },
+                  ]},
+                { label: "Cards", name: "cards", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "cta", widget: "string", required: false },
+                  ]},
+                { label: "Timeline", name: "timeline", widget: "list", required: false, fields: [
+                    { label: "Year", name: "year", widget: "string" },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Steps (process)", name: "steps", widget: "list", required: false, fields: [
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Rules (preparation)", name: "rules", widget: "list", required: false,
+                    field: { label: "Правило", name: "rule", widget: "text" }},
+                { label: "Static events", name: "eventsStatic", widget: "list", required: false, fields: [
+                    { label: "Дата", name: "date", widget: "object", fields: [
+                        { label: "День", name: "day", widget: "string" },
+                        { label: "Месяц", name: "month", widget: "string" },
+                      ]},
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Meta", name: "meta", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                  ]},
+                { label: "Contacts block", name: "contactsBlock", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Items", name: "items", widget: "list", fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Value", name: "value", widget: "string" },
+                        { label: "Ссылка", name: "href", widget: "string", required: false },
+                        { label: "Note", name: "note", widget: "text", required: false },
+                      ]},
+                  ]},
+                { label: "Form", name: "form", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Lede", name: "lede", widget: "text", required: false },
+                    { label: "Fields", name: "fields", widget: "list", required: false, fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Name", name: "name", widget: "string" },
+                        { label: "Тип", name: "type", widget: "select", options: ["text", "textarea", "select"] },
+                        { label: "Placeholder", name: "placeholder", widget: "string", required: false },
+                        { label: "Required", name: "required", widget: "boolean", default: true },
+                        { label: "Rows", name: "rows", widget: "number", value_type: "int", required: false },
+                        { label: "Options", name: "options", widget: "list", required: false, fields: [
+                            { label: "Подпись / Текст", name: "label", widget: "string" },
+                            { label: "Value", name: "value", widget: "string" },
+                          ]},
+                      ]},
+                    { label: "Agreement", name: "agreement", widget: "text", required: false },
+                    { label: "Submit label", name: "submitLabel", widget: "string" },
+                  ]},
+                { label: "FAQ", name: "faq", widget: "list", required: false, fields: [
+                    { label: "Вопрос", name: "question", widget: "text" },
+                    { label: "Ответ", name: "answer", widget: "text" },
+                  ]},
+                { label: "Blog items", name: "blogItems", widget: "list", required: false, fields: [
+                    { label: "Slug", name: "slug", widget: "string" },
+                    { label: "Tag", name: "tag", widget: "string", required: false },
+                    { label: "Date", name: "date", widget: "string" },
+                    { label: "Date display", name: "dateDisplay", widget: "string", required: false },
+                    { label: "Read time", name: "readTime", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Cover", name: "cover", widget: "object", required: false, fields: [
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                      ]},
+                  ]},
+              ]}
+
+      - name: "blog"
+        label: "Блог"
+        file: "src/content/pages/blog.json"
+        format: "json"
+        fields:
+          - { label: "SEO", name: "meta", widget: "object", fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Description", name: "description", widget: "text" },
+            ]}
+          - { label: "Hero (subhero)", name: "hero", widget: "object", fields: [
+              { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+              { label: "Заголовок", name: "title", widget: "string" },
+              { label: "Lede", name: "lede", widget: "text", required: false },
+            ]}
+          - { label: "Секции", name: "sections", widget: "list", required: false,
+              summary: "{{fields.type}} — {{fields.title | default: '(без заголовка)'}}",
+              fields: [
+                { label: "Тип секции", name: "type", widget: "string", required: false },
+                { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                { label: "Заголовок", name: "title", widget: "string", required: false },
+                { label: "Lede", name: "lede", widget: "text", required: false },
+                { label: "Subheading", name: "subheading", widget: "string", required: false },
+                { label: "Lede", name: "ledeText", widget: "text", required: false },
+                { label: "Closing", name: "closing", widget: "text", required: false },
+                { label: "Service note", name: "serviceNote", widget: "text", required: false },
+                { label: "Изображение", name: "image", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "Постер", name: "poster", widget: "object", required: false, fields: [
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  ]},
+                { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
+                { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
+                { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                  ]},
+                { label: "Actions", name: "actions", widget: "list", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string" },
+                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Primary", name: "primary", widget: "boolean", default: true },
+                  ]},
+                { label: "Контакты CTA", name: "contacts", widget: "object", required: false, fields: [
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Email", name: "email", widget: "string", required: false },
+                    { label: "Телефон", name: "phone", widget: "string", required: false },
+                    { label: "Телефон tel", name: "phoneTel", widget: "string", required: false },
+                    { label: "Telegram", name: "telegram", widget: "string", required: false },
+                    { label: "Telegram URL", name: "telegramUrl", widget: "string", required: false },
+                  ]},
+                { label: "Items (stats/numbered)", name: "items", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Prefix", name: "prefix", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string", required: false },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "ctaText", widget: "string", required: false },
+                  ]},
+                { label: "Cards", name: "cards", widget: "list", required: false, fields: [
+                    { label: "Num", name: "num", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                    { label: "CTA", name: "cta", widget: "string", required: false },
+                  ]},
+                { label: "Timeline", name: "timeline", widget: "list", required: false, fields: [
+                    { label: "Year", name: "year", widget: "string" },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Steps (process)", name: "steps", widget: "list", required: false, fields: [
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text" },
+                  ]},
+                { label: "Rules (preparation)", name: "rules", widget: "list", required: false,
+                    field: { label: "Правило", name: "rule", widget: "text" }},
+                { label: "Static events", name: "eventsStatic", widget: "list", required: false, fields: [
+                    { label: "Дата", name: "date", widget: "object", fields: [
+                        { label: "День", name: "day", widget: "string" },
+                        { label: "Месяц", name: "month", widget: "string" },
+                      ]},
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Meta", name: "meta", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
+                  ]},
+                { label: "Contacts block", name: "contactsBlock", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Items", name: "items", widget: "list", fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Value", name: "value", widget: "string" },
+                        { label: "Ссылка", name: "href", widget: "string", required: false },
+                        { label: "Note", name: "note", widget: "text", required: false },
+                      ]},
+                  ]},
+                { label: "Form", name: "form", widget: "object", required: false, fields: [
+                    { label: "Eyebrow", name: "eyebrow", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Lede", name: "lede", widget: "text", required: false },
+                    { label: "Fields", name: "fields", widget: "list", required: false, fields: [
+                        { label: "Подпись / Текст", name: "label", widget: "string" },
+                        { label: "Name", name: "name", widget: "string" },
+                        { label: "Тип", name: "type", widget: "select", options: ["text", "textarea", "select"] },
+                        { label: "Placeholder", name: "placeholder", widget: "string", required: false },
+                        { label: "Required", name: "required", widget: "boolean", default: true },
+                        { label: "Rows", name: "rows", widget: "number", value_type: "int", required: false },
+                        { label: "Options", name: "options", widget: "list", required: false, fields: [
+                            { label: "Подпись / Текст", name: "label", widget: "string" },
+                            { label: "Value", name: "value", widget: "string" },
+                          ]},
+                      ]},
+                    { label: "Agreement", name: "agreement", widget: "text", required: false },
+                    { label: "Submit label", name: "submitLabel", widget: "string" },
+                  ]},
+                { label: "FAQ", name: "faq", widget: "list", required: false, fields: [
+                    { label: "Вопрос", name: "question", widget: "text" },
+                    { label: "Ответ", name: "answer", widget: "text" },
+                  ]},
+                { label: "Blog items", name: "blogItems", widget: "list", required: false, fields: [
+                    { label: "Slug", name: "slug", widget: "string" },
+                    { label: "Tag", name: "tag", widget: "string", required: false },
+                    { label: "Date", name: "date", widget: "string" },
+                    { label: "Date display", name: "dateDisplay", widget: "string", required: false },
+                    { label: "Read time", name: "readTime", widget: "string", required: false },
+                    { label: "Заголовок", name: "title", widget: "string" },
+                    { label: "Desc", name: "desc", widget: "text", required: false },
+                    { label: "Cover", name: "cover", widget: "object", required: false, fields: [
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                      ]},
+                  ]},
+              ]}
