@@ -8,18 +8,38 @@
     "title": "Осознанный отдых в Абхазии",
     "subtitle": "Приглашаю тебя в пространство без мыслей и суеты. Здесь внутри тебя рождается место для новых открытий, самопознания и качественного отдыха вдали от суеты. Саундхилинг под звуки скрипки, ханга и голоса, авторские туры по местам силы Кавказа и Церемонии Какао с видом на горные вершины. Возвращение к себе — через звук, движение, природу и выход за рамки привычного",
     "actions": [
-      { "label": "Оставить заявку", "href": "/contacts/", "primary": true },
-      { "label": "О Церемонии Звука", "href": "/sound-healing/", "primary": false }
+      {
+        "label": "Оставить заявку",
+        "href": "/contacts/",
+        "primary": true
+      },
+      {
+        "label": "О Церемонии Звука",
+        "href": "/sound-healing/",
+        "primary": false
+      }
     ],
     "meta": [
-      { "label": "Регион", "value": "Абхазия" },
-      { "label": "Форматы", "value": "Практики, туры, церемонии" },
-      { "label": "Сезон", "value": "Круглый год" },
-      { "label": "Группа", "value": "до 8 человек" }
+      {
+        "label": "Регион",
+        "value": "Абхазия"
+      },
+      {
+        "label": "Форматы",
+        "value": "Практики, туры, церемонии"
+      },
+      {
+        "label": "Сезон",
+        "value": "Круглый год"
+      },
+      {
+        "label": "Группа",
+        "value": "до 8 человек"
+      }
     ],
     "bg": {
-      "src": "/assets/images/hero/placeholder-hero.svg",
-      "srcMobile": "/assets/images/hero/placeholder-hero-mobile.svg",
+      "src": "/assets/images/uploads/gemini_generated_image_8s9fa58s9fa58s9f.webp",
+      "srcMobile": "/assets/images/uploads/gemini_generated_image_mno6xlmno6xlmno6.webp",
       "alt": "Закат над горами и морем в Абхазии"
     }
   },
@@ -59,10 +79,22 @@
     {
       "type": "stats",
       "items": [
-        { "num": "7", "label": "лет практики" },
-        { "num": "1 200", "label": "участников практик" },
-        { "num": "40", "label": "авторских маршрутов" },
-        { "num": "12", "label": "локаций в Абхазии" }
+        {
+          "num": "7",
+          "label": "лет практики"
+        },
+        {
+          "num": "1 200",
+          "label": "участников практик"
+        },
+        {
+          "num": "40",
+          "label": "авторских маршрутов"
+        },
+        {
+          "num": "12",
+          "label": "локаций в Абхазии"
+        }
       ]
     },
     {
@@ -75,7 +107,10 @@
         "src": "/assets/images/author/author.webp",
         "alt": "MIA IRE — проводник Церемоний Звука"
       },
-      "cta": { "label": "Подробнее обо мне", "href": "/about/" }
+      "cta": {
+        "label": "Подробнее обо мне",
+        "href": "/about/"
+      }
     },
     {
       "type": "events",
@@ -101,8 +136,16 @@
       "title": "Оставьте заявку — и я свяжусь с вами",
       "lede": "Расскажите, что вас зовёт: Церемония Звука, этнотур по местам силы, какао-церемония или подбор товаров. Я предложу формат, даты и ответы на все вопросы.",
       "actions": [
-        { "label": "Оставить заявку", "href": "/contacts/", "primary": true },
-        { "label": "Написать в Telegram", "href": "{{TELEGRAM_URL}}", "primary": false }
+        {
+          "label": "Оставить заявку",
+          "href": "/contacts/",
+          "primary": true
+        },
+        {
+          "label": "Написать в Telegram",
+          "href": "{{TELEGRAM_URL}}",
+          "primary": false
+        }
       ],
       "contacts": {
         "label": "Прямые контакты",
