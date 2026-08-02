@@ -218,9 +218,9 @@ collections:
                   { label: "Значение", name: "value", widget: "string" },
                 ]},
               { label: "Фон (изображение)", name: "bg", widget: "object", required: false, fields: [
-                  { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                  { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
                   { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                  { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                  { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                 ]},
             ]}
           - { label: "Секции", name: "sections", widget: "list", required: false,
@@ -235,21 +235,21 @@ collections:
                 { label: "Закрывающий текст", name: "closing", widget: "text", required: false },
                 { label: "Служебная пометка (serviceNote)", name: "serviceNote", widget: "text", required: false },
                 { label: "Изображение", name: "image", widget: "object", required: false, fields: [
-                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false, required: false },
                     { label: "Мобильное", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Постер (видео)", name: "poster", widget: "object", required: false, fields: [
-                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Список (dotted-list / bullets)", name: "list", widget: "list", required: false,
                     field: { label: "Пункт", name: "item", widget: "string" }},
                 { label: "Абзацы", name: "paragraphs", widget: "list", required: false,
                     field: { label: "Абзац", name: "p", widget: "text" }},
                 { label: "Кнопка CTA (секции)", name: "cta", widget: "object", required: false, fields: [
-                    { label: "Текст", name: "label", widget: "string" },
-                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Текст", name: "label", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
                   ]},
                 { label: "Общие действия (actions)", name: "actions", widget: "list", required: false, fields: [
                     { label: "Текст", name: "label", widget: "string" },
@@ -352,8 +352,8 @@ collections:
                       { label: "Заголовок", name: "title", widget: "string" },
                       { label: "Описание (excerpt)", name: "desc", widget: "text", required: false },
                       { label: "Обложка", name: "cover", widget: "object", required: false, fields: [
-                          { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
-                          { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                          { label: "Путь", name: "src", widget: "image", allow_unsupported: false, required: false },
+                          { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                         ]},
                     ]},
               ]}
@@ -384,21 +384,21 @@ collections:
                 { label: "Закрывающий текст", name: "closing", widget: "text", required: false },
                 { label: "Service note", name: "serviceNote", widget: "text", required: false },
                 { label: "Изображение", name: "image", widget: "object", required: false, fields: [
-                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false, required: false },
                     { label: "Мобильное", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Постер", name: "poster", widget: "object", required: false, fields: [
-                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Путь", name: "src", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Список (list)", name: "list", widget: "list", required: false,
                     field: { label: "Пункт", name: "item", widget: "string" }},
                 { label: "Абзацы (paragraphs)", name: "paragraphs", widget: "list", required: false,
                     field: { label: "Абзац", name: "p", widget: "text" }},
                 { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
-                    { label: "Текст", name: "label", widget: "string" },
-                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Текст", name: "label", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
                   ]},
                 { label: "Actions (общие)", name: "actions", widget: "list", required: false, fields: [
                     { label: "Текст", name: "label", widget: "string" },
@@ -490,8 +490,8 @@ collections:
                     { label: "Заголовок", name: "title", widget: "string" },
                     { label: "Описание", name: "desc", widget: "text", required: false },
                     { label: "Обложка", name: "cover", widget: "object", required: false, fields: [
-                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                       ]},
                   ]},
               ]}
@@ -522,19 +522,19 @@ collections:
                 { label: "Закрывающий текст", name: "closing", widget: "text", required: false },
                 { label: "Service note", name: "serviceNote", widget: "text", required: false },
                 { label: "Изображение", name: "image", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
                     { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Постер", name: "poster", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
                 { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
                 { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
-                    { label: "Подпись / Текст", name: "label", widget: "string" },
-                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
                   ]},
                 { label: "Actions", name: "actions", widget: "list", required: false, fields: [
                     { label: "Подпись / Текст", name: "label", widget: "string" },
@@ -627,8 +627,8 @@ collections:
                     { label: "Заголовок", name: "title", widget: "string" },
                     { label: "Desc", name: "desc", widget: "text", required: false },
                     { label: "Cover", name: "cover", widget: "object", required: false, fields: [
-                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                       ]},
                   ]},
               ]}
@@ -659,19 +659,19 @@ collections:
                 { label: "Closing", name: "closing", widget: "text", required: false },
                 { label: "Service note", name: "serviceNote", widget: "text", required: false },
                 { label: "Изображение", name: "image", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
                     { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Постер", name: "poster", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
                 { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
                 { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
-                    { label: "Подпись / Текст", name: "label", widget: "string" },
-                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
                   ]},
                 { label: "Actions", name: "actions", widget: "list", required: false, fields: [
                     { label: "Подпись / Текст", name: "label", widget: "string" },
@@ -764,8 +764,8 @@ collections:
                     { label: "Заголовок", name: "title", widget: "string" },
                     { label: "Desc", name: "desc", widget: "text", required: false },
                     { label: "Cover", name: "cover", widget: "object", required: false, fields: [
-                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                       ]},
                   ]},
               ]}
@@ -796,19 +796,19 @@ collections:
                 { label: "Closing", name: "closing", widget: "text", required: false },
                 { label: "Service note", name: "serviceNote", widget: "text", required: false },
                 { label: "Изображение", name: "image", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
                     { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Постер", name: "poster", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
                 { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
                 { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
-                    { label: "Подпись / Текст", name: "label", widget: "string" },
-                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
                   ]},
                 { label: "Actions", name: "actions", widget: "list", required: false, fields: [
                     { label: "Подпись / Текст", name: "label", widget: "string" },
@@ -901,8 +901,8 @@ collections:
                     { label: "Заголовок", name: "title", widget: "string" },
                     { label: "Desc", name: "desc", widget: "text", required: false },
                     { label: "Cover", name: "cover", widget: "object", required: false, fields: [
-                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                       ]},
                   ]},
               ]}
@@ -933,19 +933,19 @@ collections:
                 { label: "Closing", name: "closing", widget: "text", required: false },
                 { label: "Service note", name: "serviceNote", widget: "text", required: false },
                 { label: "Изображение", name: "image", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
                     { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Постер", name: "poster", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
                 { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
                 { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
-                    { label: "Подпись / Текст", name: "label", widget: "string" },
-                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
                   ]},
                 { label: "Actions", name: "actions", widget: "list", required: false, fields: [
                     { label: "Подпись / Текст", name: "label", widget: "string" },
@@ -1038,8 +1038,8 @@ collections:
                     { label: "Заголовок", name: "title", widget: "string" },
                     { label: "Desc", name: "desc", widget: "text", required: false },
                     { label: "Cover", name: "cover", widget: "object", required: false, fields: [
-                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                       ]},
                   ]},
               ]}
@@ -1070,19 +1070,19 @@ collections:
                 { label: "Closing", name: "closing", widget: "text", required: false },
                 { label: "Service note", name: "serviceNote", widget: "text", required: false },
                 { label: "Изображение", name: "image", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
                     { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Постер", name: "poster", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
                 { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
                 { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
-                    { label: "Подпись / Текст", name: "label", widget: "string" },
-                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
                   ]},
                 { label: "Actions", name: "actions", widget: "list", required: false, fields: [
                     { label: "Подпись / Текст", name: "label", widget: "string" },
@@ -1175,8 +1175,8 @@ collections:
                     { label: "Заголовок", name: "title", widget: "string" },
                     { label: "Desc", name: "desc", widget: "text", required: false },
                     { label: "Cover", name: "cover", widget: "object", required: false, fields: [
-                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                       ]},
                   ]},
               ]}
@@ -1207,19 +1207,19 @@ collections:
                 { label: "Closing", name: "closing", widget: "text", required: false },
                 { label: "Service note", name: "serviceNote", widget: "text", required: false },
                 { label: "Изображение", name: "image", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
                     { label: "Мобильное изображение", name: "srcMobile", widget: "image", allow_unsupported: false, required: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "Постер", name: "poster", widget: "object", required: false, fields: [
-                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                    { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                    { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                    { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                   ]},
                 { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" }},
                 { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "P", name: "p", widget: "text" }},
                 { label: "CTA кнопка", name: "cta", widget: "object", required: false, fields: [
-                    { label: "Подпись / Текст", name: "label", widget: "string" },
-                    { label: "Ссылка", name: "href", widget: "string" },
+                    { label: "Подпись / Текст", name: "label", widget: "string", required: false },
+                    { label: "Ссылка", name: "href", widget: "string", required: false },
                   ]},
                 { label: "Actions", name: "actions", widget: "list", required: false, fields: [
                     { label: "Подпись / Текст", name: "label", widget: "string" },
@@ -1312,8 +1312,8 @@ collections:
                     { label: "Заголовок", name: "title", widget: "string" },
                     { label: "Desc", name: "desc", widget: "text", required: false },
                     { label: "Cover", name: "cover", widget: "object", required: false, fields: [
-                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false },
-                        { label: "Alt-текст изображения", name: "alt", widget: "string" },
+                        { label: "Изображение", name: "src", widget: "image", allow_unsupported: false, required: false },
+                        { label: "Alt-текст изображения", name: "alt", widget: "string", required: false },
                       ]},
                   ]},
               ]}
